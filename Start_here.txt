@@ -1,2 +1,4 @@
 npm install express cors body-parser dotenv
-node index.js    
+node index.js     
+
+http://localhost:3000/
