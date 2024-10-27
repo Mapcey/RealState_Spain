@@ -21,119 +21,39 @@
 
     <div class="content">
       <!-- Sidebar Menu -->
-      <aside class="side-panel-contaniner">
-        <label class="sp-sub-titles">Property Type</label>
-        <select
-          title="dd"
-          name="Property types"
-          class="dropdown"
-          id="property-types-dd"
-        >
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="c++">C++</option>
-          <option value="java">Java</option>
+     <div class="filter-container">
+    <label>Property Type:
+        <select id="propertyType">
+            <option value="">Any</option>
+            <option value="Apartment">Apartment</option>
+            <option value="House">House</option>
+            <!-- Add more options as needed -->
         </select>
+    </label>
+    <label>Price Range:
+        <input type="number" id="minPrice" placeholder="Min"> -
+        <input type="number" id="maxPrice" placeholder="Max">
+    </label>
+    <label>Size Range (sq ft):
+        <input type="number" id="minSize" placeholder="Min"> -
+        <input type="number" id="maxSize" placeholder="Max">
+    </label>
+    <label>Bedrooms:
+        <input type="number" id="bedrooms" placeholder="Any">
+    </label>
+    <label>Bathrooms:
+        <input type="number" id="bathrooms" placeholder="Any">
+    </label>
+    <button onclick="filterProperties()">Filter</button>
+</div>
 
-        <label class="sp-sub-titles">Price</label>
-        <div class="dp-group">
-          <select
-            title="dd"
-            name="Property types"
-            class="dropdown"
-            id="property-types-dd"
-          >
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="c++">C++</option>
-            <option value="java">Java</option>
-          </select>
-          <select
-            title="dd"
-            name="Property types"
-            class="dropdown"
-            id="property-types-dd"
-          >
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="c++">C++</option>
-            <option value="java">Java</option>
-          </select>
-        </div>
-
-        <label class="sp-sub-titles">Size</label>
-        <div class="dp-group">
-          <select
-            title="dd"
-            name="Property types"
-            class="dropdown"
-            id="property-types-dd"
-          >
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="c++">C++</option>
-            <option value="java">Java</option>
-          </select>
-          <select
-            title="dd"
-            name="Property types"
-            class="dropdown"
-            id="property-types-dd"
-          >
-            <option value="javascript">JavaScript</option>
-            <option value="python">Python</option>
-            <option value="c++">C++</option>
-            <option value="java">Java</option>
-          </select>
-        </div>
-
-        <label class="sp-sub-titles">Bedrooms</label>
-        <div class="check-list-group">
-          <input type="checkbox" id="br-1" name="1" />
-          <label for="1"> 0 Bedrooms</label><br />
-          <input type="checkbox" id="br-2" name="2" />
-          <label for="2"> 1</label><br />
-          <input type="checkbox" id="br-3" name="3" />
-          <label for="3"> 2</label><br />
-        </div>
-
-        <label class="sp-sub-titles">Bathrooms</label>
-        <div class="check-list-group">
-          <input type="checkbox" id="br-1" name="1" />
-          <label for="1"> 0 Bedrooms</label><br />
-          <input type="checkbox" id="br-2" name="2" />
-          <label for="2"> 1</label><br />
-          <input type="checkbox" id="br-3" name="3" />
-          <label for="3"> 2</label><br />
-        </div>
-
-        <label class="sp-sub-titles">More Filters</label>
-        <div class="check-list-group">
-          <input type="checkbox" id="br-1" name="1" />
-          <label for="1"> 0 Bedrooms</label><br />
-          <input type="checkbox" id="br-2" name="2" />
-          <label for="2"> 1</label><br />
-          <input type="checkbox" id="br-3" name="3" />
-          <label for="3"> 2</label><br />
-          <input type="checkbox" id="br-1" name="1" />
-          <label for="1"> 0 Bedrooms</label><br />
-          <input type="checkbox" id="br-2" name="2" />
-          <label for="2"> 1</label><br />
-          <input type="checkbox" id="br-3" name="3" />
-          <label for="3"> 2</label><br />
-          <input type="checkbox" id="br-1" name="1" />
-          <label for="1"> 0 Bedrooms</label><br />
-          <input type="checkbox" id="br-2" name="2" />
-          <label for="2"> 1</label><br />
-          <input type="checkbox" id="br-3" name="3" />
-          <label for="3"> 2</label><br />
-        </div>
-      </aside>
+<div id="propertiesContainer"></div>
 
       <!-- Map Pane -->
       <div class="map-container">
         <div id="map"></div>
       </div>
+      <div id="properties-container"></div>
     </div>
 
     <!-- Leaflet JS -->
