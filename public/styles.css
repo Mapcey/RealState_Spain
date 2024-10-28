@@ -28,7 +28,7 @@ html {
 .nav-container {
   background-color: var(--primary-color-dark);
   color: var(--background-color);
-  text-align: center;
+  text-align: left;
   height: 50px;
 }
 
@@ -40,9 +40,10 @@ html {
   display: flex;
   flex-direction: row;
   height: calc(100% - 50px);
+
 }
 
-.side-panel-contaniner {
+.filter-container {
   display: flex;
   flex-direction: column;
   padding: 10px;

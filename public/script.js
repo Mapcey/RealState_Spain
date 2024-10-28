@@ -1,23 +1,13 @@
-// public/script.js
-
-// Initialize the Leaflet map
-const map = L.map("map").setView([51.505, -0.09], 13); // Set initial coordinates and zoom level
-
-// Add a tile layer to the map (using OpenStreetMap)
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  maxZoom: 19,
-  attribution: "© OpenStreetMap contributors",
-}).addTo(map);
+let propertyData = [];
 
 async function loadXML() {
-  const response = await fetch('XML_Feeds_for_areas.xml'); // Ensure the path is correct
+  const response = await fetch('XML_Feeds_for_areas.xml'); 
   const xmlText = await response.text();
   const parser = new DOMParser();
   return parser.parseFromString(xmlText, 'application/xml');
 }
 
 function storeProperties(properties) {
-  const propertyData = [];
   properties.forEach(property => {
       propertyData.push({
           id: property.getElementsByTagName("id")[0]?.textContent || "N/A",
