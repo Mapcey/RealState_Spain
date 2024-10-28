@@ -58,7 +58,7 @@ setTimeout(addMarkersToMap, 100); // Adjust delay as needed
 document.getElementById("loading").style.display = "flex";
 
 function loadData() {
-  fetch("data_1.xml")
+  fetch("XML_Feeds_for_areas.xml")
     .then((response) => response.text())
     .then((xmlString) => {
       document.getElementById("loading").style.display = "none";
