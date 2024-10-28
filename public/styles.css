@@ -40,7 +40,6 @@ html {
   display: flex;
   flex-direction: row;
   height: calc(100% - 50px);
-
 }
 
 .filter-container {
@@ -65,17 +64,18 @@ html {
 
 .sp-sub-titles {
   font-size: 16px;
-  font-weight: bold;
-  color: var(--text-color);
+  font-weight: 400;
+  border: 1px solid --secondary-color-dark;
+  margin-bottom: 5px;
 }
 
 .dropdown {
   padding: 4px 10px; /* Padding inside dropdown */
   font-size: 14px;
+  border: 1px solid var(--secondary-color-light);
+  border-radius: 4px;
   color: --text-color;
   background-color: var(--background-color);
-  border: 1px solid --secondary-color-dark;
-  border-radius: 4px;
   cursor: pointer;
   margin: 5px 10px 20px 5px;
 }
@@ -95,6 +95,49 @@ html {
   background-color: var(--background-color-dark);
 }
 
-.check-list-group {
+.input-group {
+  display: flex;
+  flex-direction: row;
+}
+
+.text-input-range {
+  padding: 4px 10px;
+  font-size: 14px;
+  border: 1px solid var(--secondary-color-light);
+  border-radius: 4px;
+  color: --text-color;
+  background-color: var(--background-color);
+  cursor: pointer;
   margin: 5px 10px 20px 5px;
+  width: 90px;
+  transition: all 0.3s ease;
+}
+
+.text-input {
+  padding: 4px 10px;
+  font-size: 14px;
+  border: 1px solid var(--secondary-color-light);
+  border-radius: 4px;
+  color: --text-color;
+  background-color: var(--background-color);
+  cursor: pointer;
+  margin: 5px 10px 20px 5px;
+  transition: all 0.3s ease;
+}
+
+.filter-button {
+  padding: 8px 10px;
+  font-size: 14px;
+  border: 1px solid var(--secondary-color-light);
+  border-radius: 4px;
+  color: --text-color;
+  background-color: var(--background-color);
+  cursor: pointer;
+  margin: 5px 10px 20px 5px;
+  transition: all 0.3s ease;
+}
+
+.filter-button:hover {
+  background-color: var(--primary-color);
+  color: var(--background-color);
 }

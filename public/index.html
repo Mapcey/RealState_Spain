@@ -12,6 +12,8 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
+    <!-- bind popup -->
+    <link rel="stylesheet" href="/styles/popup.css" />
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -21,33 +23,68 @@
 
     <div class="content">
       <!-- Sidebar Menu -->
-     <div class="filter-container">
-      <label>Property Type:
-        <select id="propertyType">
-            <option value="">Any</option>
-            <option value="Apartment">Apartment</option>
-            <option value="House">House</option>
-            <!-- Add more options as needed -->
+      <div class="filter-container">
+        <label class="sp-sub-titles">Property Type: </label>
+        <select title="property type" id="propertyType" class="dropdown">
+          <option value="">Any</option>
+          <option value="Apartment">Apartment</option>
+          <option value="House">House</option>
         </select>
-    </label>
-    <label>Price Range:
-        <input type="number" id="minPrice" placeholder="Min"> -
-        <input type="number" id="maxPrice" placeholder="Max">
-    </label>
-    <label>Size Range (sq ft):
-        <input type="number" id="minSize" placeholder="Min"> -
-        <input type="number" id="maxSize" placeholder="Max">
-    </label>
-    <label>Bedrooms:
-        <input type="number" id="bedrooms" placeholder="Any">
-    </label>
-    <label>Bathrooms:
-        <input type="number" id="bathrooms" placeholder="Any">
-    </label>
-    <button onclick="filterProperties()">Filter</button>
-</div>
 
-<div id="propertiesContainer"></div>
+        <label class="sp-sub-titles">Price Range: </label>
+        <div class="input-group">
+          <input
+            class="text-input-range"
+            type="number"
+            id="minPrice"
+            placeholder="Min"
+          />
+
+          <input
+            class="text-input-range"
+            type="number"
+            id="maxPrice"
+            placeholder="Max"
+          />
+        </div>
+
+        <label class="sp-sub-titles">Size Range (sq ft): </label>
+        <div class="input-group">
+          <input
+            class="text-input-range"
+            type="number"
+            id="minSize"
+            placeholder="Min"
+          />
+
+          <input
+            class="text-input-range"
+            type="number"
+            id="maxSize"
+            placeholder="Max"
+          />
+        </div>
+
+        <label class="sp-sub-titles">Bedrooms: </label>
+        <input
+          class="text-input"
+          type="number"
+          id="bedrooms"
+          placeholder="Any"
+        />
+
+        <label class="sp-sub-titles">Bathrooms: </label>
+        <input
+          class="text-input"
+          type="number"
+          id="bathrooms"
+          placeholder="Any"
+        />
+
+        <button class="filter-button" onclick="filterProperties()">
+          Filter
+        </button>
+      </div>
 
       <!-- Map Pane -->
       <div class="map-container">
@@ -60,9 +97,32 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <!-- Turf.js -->
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-    
+
     <!-- Custom Script -->
     <script src="script.js"></script>
     <script src="mapscript.js"></script>
   </body>
 </html>
+
+<!-- <div class="popup-container">
+  <div class="popup-title">${property.title}</div>
+  <div class="popup-body">
+    <div class="popup-data-fields">
+      <label> Price:</label>
+      ${property.price} ${property.currency}
+    </div>
+    <div class="popup-data-fields">
+      <label> Type:</label>
+      ${property.type}
+    </div>
+    <div class="popup-data-fields">
+      <label> Beds:</label>
+      ${property.beds}
+
+      <label> Baths:</label>
+      ${property.baths}
+    </div>
+
+    <div class="popup-data-fields">${property.desc}</div>
+  </div>
+</div> -->

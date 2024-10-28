@@ -1,0 +1,60 @@
+/* Popup Container Styling */
+.leaflet-popup {
+  width: 400px;
+}
+
+.popup-container {
+  font-family: Arial, sans-serif;
+  color: var(--text-color);
+}
+
+/* Popup Title Styling */
+.popup-title {
+  width: 350px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+/* Popup Body Styling */
+.popup-body {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Data Fields */
+.popup-data-fields {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 350px;
+  font-size: 14px;
+  border-bottom: 1px solid #f1f1f1;
+  padding: 5px 0;
+}
+
+/* Labels */
+.popup-data-fields label {
+  font-weight: bold;
+  color: #555;
+  margin-right: 5px;
+}
+
+/* Property Description Styling */
+.popup-data-fields:last-of-type {
+  border: none;
+  font-size: 13px;
+  color: #666;
+  padding-top: 10px;
+}
+
+.popup-data-description {
+  height: 150px;
+  overflow-y: scroll;
+  color: var(--text-color-light);
+  width: 360px;
+  font-size: 10px;
+}
