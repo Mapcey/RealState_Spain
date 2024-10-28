@@ -1,110 +1,44 @@
-/* Popup Container Styling */
-.leaflet-popup {
-  width: 400px;
+.leaflet-popup-content {
+  width: 300px;
+  max-height: 200px;
+  overflow-y: scroll;
+  font-family: Arial, sans-serif;
 }
 
-.popup-container {
-  font-family: Arial, sans-serif;
+.popup-title {
+  width: 300px;
+  font-size: 16px;
+  font-weight: bold;
+  position: fixed;
+  margin-bottom: 10px;
+  background-color: white;
+  padding: 0;
   color: var(--text-color);
 }
 
-/* Popup Title Styling */
-.popup-title {
-  width: 350px;
-  font-size: 18px;
-  font-weight: bold;
-  color: #007bff;
-  margin-bottom: 10px;
-  text-align: center;
-}
-
-/* Popup Body Styling */
-.popup-body {
+.popup-container {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-direction: row;
+  margin-top: 10px;
+  transition: all 0.3s ease;
 }
 
-/* Data Fields */
-.popup-data-fields {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 350px;
-  font-size: 14px;
-  border-bottom: 1px solid #f1f1f1;
-  padding: 5px 0;
-}
-
-/* Labels */
-.popup-data-fields label {
-  font-weight: bold;
-  color: #555;
-  margin-right: 5px;
-}
-
-/* Property Description Styling */
-.popup-data-fields:last-of-type {
-  border: none;
-  font-size: 13px;
-  color: #666;
-  padding-top: 10px;
-}
-
-.popup-data-description {
-  height: 150px;
-  overflow-y: scroll;
-  color: var(--text-color-light);
-  width: 360px;
-  font-size: 10px;
-}
-
-/* ********* slide show ******** */
-
-.popup-slideshow {
-  position: relative;
-  width: 350px;
-  margin: 10px 0;
-}
-
-.slides-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 350px;
-}
-
-.slide {
-  max-width: 100%;
-  height: auto;
-  max-height: 250px;
-  display: none;
-  border-radius: 5px;
-}
-
-/* Controls */
-.prev-slide,
-.next-slide {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  color: white;
-  font-size: 18px;
-  padding: 5px;
+.popup-container:hover {
   cursor: pointer;
-  border: none;
-  border-radius: 50%;
-  width: 30px;
-  height: 30px;
-  text-align: center;
-  line-height: 20px;
+  opacity: 0.8;
 }
 
-.prev-slide {
-  left: 10px;
+.property-type {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--text-color-light);
 }
 
-.next-slide {
-  right: 10px;
+.property-price {
+  font-size: 10px;
+  margin-left: 10px;
+  padding: 3px 10px;
+  background-color: var(--primary-color);
+  border-radius: 8px;
+  color: white;
 }

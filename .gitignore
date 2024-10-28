@@ -35,5 +35,7 @@ temp/
 #xml file
 public/XML_Feeds_for_areas.xml
 
+public/malaga_towns.geojson
+
 #notes
 notes.txt
