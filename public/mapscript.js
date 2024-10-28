@@ -46,18 +46,27 @@ function addMarkersToMap() {
                     <div class="popup-data-description">${property.desc}</div>
                 </div>
             </div>
-
-<!--
-                <b class="title">${property.title}</b><br>
-                Price: ${property.price} ${property.currency}<br>
-                Type: ${property.type}<br>
-                Beds: ${property.beds}, Baths: ${property.baths}<br>
-                ${property.desc}
--->
             `);
     }
   });
 }
 
 // Delay marker plotting until `propertyData` is populated
-setTimeout(addMarkersToMap, 1000); // Adjust delay as needed
+setTimeout(addMarkersToMap, 100); // Adjust delay as needed
+
+// *** loading toast ***
+document.getElementById("loading").style.display = "flex";
+
+function loadData() {
+  fetch("data_1.xml")
+    .then((response) => response.text())
+    .then((xmlString) => {
+      document.getElementById("loading").style.display = "none";
+    })
+    .catch((error) => {
+      console.error("Error loading XML:", error);
+      document.getElementById("loading").style.display = "none";
+    });
+}
+
+loadData();

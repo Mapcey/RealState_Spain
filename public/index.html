@@ -14,8 +14,16 @@
     <link rel="stylesheet" href="styles.css" />
     <!-- bind popup -->
     <link rel="stylesheet" href="/styles/popup.css" />
+    <!-- loading toast -->
+    <link rel="stylesheet" href="/styles/loading.css" />
   </head>
   <body>
+    <!-- loading toast -->
+    <div id="loading" class="loading-container">
+      <div class="spinner"></div>
+      <p>Loading data...</p>
+    </div>
+
     <!-- Navigation Bar -->
     <nav class="nav-container">
       <label>Company Name</label>
@@ -103,26 +111,3 @@
     <script src="mapscript.js"></script>
   </body>
 </html>
-
-<!-- <div class="popup-container">
-  <div class="popup-title">${property.title}</div>
-  <div class="popup-body">
-    <div class="popup-data-fields">
-      <label> Price:</label>
-      ${property.price} ${property.currency}
-    </div>
-    <div class="popup-data-fields">
-      <label> Type:</label>
-      ${property.type}
-    </div>
-    <div class="popup-data-fields">
-      <label> Beds:</label>
-      ${property.beds}
-
-      <label> Baths:</label>
-      ${property.baths}
-    </div>
-
-    <div class="popup-data-fields">${property.desc}</div>
-  </div>
-</div> -->

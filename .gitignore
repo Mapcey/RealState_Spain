@@ -34,3 +34,6 @@ temp/
 
 #xml file
 public/XML_Feeds_for_areas.xml
+
+#notes
+notes.txt
