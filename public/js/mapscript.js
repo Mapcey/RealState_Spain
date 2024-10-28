@@ -27,6 +27,30 @@ function addMarkersToMap() {
       marker.bindPopup(`
                 <div class="popup-container">
                     <div class="popup-title">${property.title}</div>
+
+
+
+
+
+<div class="popup-slideshow">
+      <button class="prev-slide" onclick="showPrevSlide()">&#10094;</button>
+      <div class="slides-container">
+        ${property.images
+          .map(
+            (image, index) =>
+              `<img src="${image}" class="slide" style="display: ${
+                index === 0 ? "block" : "none"
+              };" />`
+          )
+          .join("")}
+      </div>
+      <button class="next-slide" onclick="showNextSlide()">&#10095;</button>
+    </div>
+
+
+
+
+
                     <div class="popup-body">
                         <div class="popup-data-fields">
                             <label> Price:</label>
@@ -52,7 +76,7 @@ function addMarkersToMap() {
 }
 
 // Delay marker plotting until `propertyData` is populated
-setTimeout(addMarkersToMap, 100); // Adjust delay as needed
+setTimeout(addMarkersToMap, 1000); // Adjust delay as needed
 
 // *** loading toast ***
 document.getElementById("loading").style.display = "flex";
@@ -70,3 +94,29 @@ function loadData() {
 }
 
 loadData();
+
+// ************** slideshow button function ****************
+let currentSlideIndex = 0;
+
+function showSlides(n) {
+  const slides = document.querySelectorAll(".slide");
+
+  // Wrap around if n goes out of bounds
+  if (n >= slides.length) currentSlideIndex = 0;
+  else if (n < 0) currentSlideIndex = slides.length - 1;
+  else currentSlideIndex = n;
+
+  // Hide all slides and display the current slide
+  slides.forEach((slide, index) => {
+    slide.style.display = index === currentSlideIndex ? "block" : "none";
+  });
+}
+
+// Next and previous slide controls
+function showNextSlide() {
+  showSlides(currentSlideIndex + 1);
+}
+
+function showPrevSlide() {
+  showSlides(currentSlideIndex - 1);
+}
