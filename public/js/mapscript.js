@@ -14,6 +14,52 @@ const selectedStyle = { color: "#ff7800", weight: 3 };
 // Variable to store the currently selected layer
 let selectedLayer = null;
 
+// Initialize the drawn items layer and add it to the map
+const drawnItems = new L.FeatureGroup();
+map.addLayer(drawnItems);
+
+// Initialize Leaflet Draw control
+const drawControl = new L.Control.Draw({
+  edit: {
+    featureGroup: drawnItems,
+  },
+  draw: {
+    polygon: {
+      allowIntersection: false, // Prevent the user from creating intersecting polygons
+    },
+    rectangle: false, // Disable rectangle drawing
+    // circle: false, // Disable circle drawing
+    marker: false, // Disable marker drawing
+    polyline: false, // Disable polyline drawing
+  },
+});
+map.addControl(drawControl);
+
+// Handle the creation of a new polygon
+map.on(L.Draw.Event.CREATED, function (event) {
+  const layer = event.layer;
+  drawnItems.addLayer(layer);
+
+  // Check for intersections with GeoJSON polygons
+  const drawnPolygon = layer.toGeoJSON();
+  const selectedProperties = [];
+
+  //  >>>>>>>>>>>  selection logic <<<<<<<<<<<<
+
+  // If there are selected properties, print their details
+  if (selectedProperties.length > 0) {
+    console.log("Selected Properties:");
+    selectedProperties.forEach((layer) => {
+      const properties = layer.feature.properties;
+      console.log(
+        `Municipality: ${properties.mun_name}, Type: ${properties.type}, Price: ${properties.price}`
+      );
+    });
+  } else {
+    console.log("No properties found within the drawn polygon.");
+  }
+});
+
 function xmlLoader() {
   loadXML().then((xml) => {
     const properties = Array.from(xml.getElementsByTagName("property"));
@@ -83,6 +129,7 @@ fetch("malaga_towns.geojson")
 // Delay marker plotting until `propertyData` is populated
 setTimeout(xmlLoader, 1000); // Adjust delay as needed
 
+// bind popup list item on click function
 function clicked() {
-  console.log("hello");
+  console.log("test");
 }
