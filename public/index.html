@@ -10,7 +10,6 @@
       rel="stylesheet"
       href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     />
-
     <!-- Leaflet Draw CSS -->
     <link
       rel="stylesheet"
@@ -18,9 +17,10 @@
     />
     <!-- Custom CSS -->
     <link rel="stylesheet" href="styles.css" />
-
     <!-- bind popup CSS -->
     <link rel="stylesheet" href="./styles/popup.css" />
+    <!-- Detail panel -->
+    <link rel="stylesheet" href="./styles/detail-panel.css" />
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -98,6 +98,12 @@
         <div id="map"></div>
       </div>
       <div id="properties-container"></div>
+
+      <!-- Detail panel -->
+      <div id="detail-panel" class="detail-panel-container">
+        <div class="detail-panel-title">Panel title</div>
+        <div class="detail-panel-body">body content</div>
+      </div>
     </div>
 
     <!-- Leaflet JS -->
@@ -111,6 +117,7 @@
     <script src="script.js"></script>
     <script src="./js/mapscript.js"></script>
     <script src="./js/dropdownFeed.js"></script>
+    <script src="./js/detail-panel.js"></script>
   </body>
 </html>
 

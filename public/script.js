@@ -1,4 +1,5 @@
 let propertyData = [];
+let filteredData = [];
 
 async function loadXML() {
   const response = await fetch("XML_Feeds_for_areas.xml");
@@ -58,9 +59,10 @@ function storeProperties(properties) {
       ),
     });
   });
-  console.log(propertyData); // Logging the stored properties
+  // console.log(propertyData); // Logging the stored properties
   return propertyData;
 }
+
 function filterProperties() {
   const type = document.getElementById("propertyType").value.toLowerCase();
   const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
@@ -72,43 +74,82 @@ function filterProperties() {
   const bedrooms = parseInt(document.getElementById("bedrooms").value) || 0;
   const bathrooms = parseInt(document.getElementById("bathrooms").value) || 0;
 
-  loadXML().then((xml) => {
-    const properties = Array.from(xml.getElementsByTagName("property"));
+  // ****************   filtering logic   **********************
+  if (matchingProperties.length > 0) {
+    // ******* IF POLYGONS SELECTED ********
+    console.log("filter work for selected properties");
+    console.log(matchingProperties);
 
-    const filtered = properties.filter((p) => {
-      const propertyType =
-        p.getElementsByTagName("type")[0]?.textContent.toLowerCase() || "";
-      const propertyPrice =
-        parseFloat(p.getElementsByTagName("price")[0]?.textContent) || 0;
-      const propertySize =
-        parseFloat(p.getElementsByTagName("size")[0]?.textContent) || 0;
-      const propertyBedrooms =
-        parseInt(p.getElementsByTagName("beds")[0]?.textContent) || 0;
-      const propertyBathrooms =
-        parseInt(p.getElementsByTagName("baths")[0]?.textContent) || 0;
+    const properties = matchingProperties;
 
+    const propertyTypeValue = document.getElementById("propertyType").value;
+    const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
+    const maxPrice =
+      parseFloat(document.getElementById("maxPrice").value) || Infinity;
+    const minSize = parseFloat(document.getElementById("minSize").value) || 0;
+    const maxSize =
+      parseFloat(document.getElementById("maxSize").value) || Infinity;
+    const bedroomsValue =
+      parseInt(document.getElementById("bedrooms").value) || 0;
+    const bathroomsValue =
+      parseInt(document.getElementById("bathrooms").value) || 0;
+
+    // Filter the properties based on both conditions
+    const filtered = properties.filter((property) => {
       return (
-        (type === "" || propertyType.includes(type)) &&
-        propertyPrice >= minPrice &&
-        propertyPrice <= maxPrice &&
-        propertySize >= minSize &&
-        propertySize <= maxSize &&
-        (bedrooms === 0 || propertyBedrooms === bedrooms) &&
-        (bathrooms === 0 || propertyBathrooms === bathrooms)
+        (property.type === propertyTypeValue || propertyTypeValue === "") &&
+        property.price >= minPrice &&
+        property.price <= maxPrice &&
+        // property.size >= minSize &&
+        // property.size <= maxSize &&
+        (property.beds === bedroomsValue || bedroomsValue === 0) &&
+        (property.baths === bathroomsValue || bathroomsValue === 0)
       );
     });
 
-    // Store the filtered properties
-    const storedProperties = storeProperties(filtered);
-    console.log("Filtered properties stored:", storedProperties); // You can see the stored properties in the console
-  });
+    console.log("Filtered properties:", filtered);
+    filteredData = filtered;
+  } else {
+    // ******* IF POLYGONS NOT SELECTED ********
+    loadXML().then((xml) => {
+      const properties = Array.from(xml.getElementsByTagName("property"));
+
+      const filtered = properties.filter((p) => {
+        const propertyType =
+          p.getElementsByTagName("type")[0]?.textContent.toLowerCase() || "";
+        const propertyPrice =
+          parseFloat(p.getElementsByTagName("price")[0]?.textContent) || 0;
+        const propertySize =
+          parseFloat(p.getElementsByTagName("size")[0]?.textContent) || 0;
+        const propertyBedrooms =
+          parseInt(p.getElementsByTagName("beds")[0]?.textContent) || 0;
+        const propertyBathrooms =
+          parseInt(p.getElementsByTagName("baths")[0]?.textContent) || 0;
+
+        return (
+          (type === "" || propertyType.includes(type)) &&
+          propertyPrice >= minPrice &&
+          propertyPrice <= maxPrice &&
+          propertySize >= minSize &&
+          propertySize <= maxSize &&
+          (bedrooms === 0 || propertyBedrooms === bedrooms) &&
+          (bathrooms === 0 || propertyBathrooms === bathrooms)
+        );
+      });
+
+      // Store the filtered properties
+      const storedProperties = storeProperties(filtered);
+      console.log("Filtered properties stored:", storedProperties);
+      filteredData = storedProperties;
+    });
+  }
 }
 
 // Load properties initially
-loadXML().then((xml) => {
-  const properties = Array.from(xml.getElementsByTagName("property"));
+// loadXML().then((xml) => {
+//   const properties = Array.from(xml.getElementsByTagName("property"));
 
-  // Store all properties initially
-  const initialStoredProperties = storeProperties(properties);
-  console.log("Initial properties stored:", initialStoredProperties); // Log initial properties
-});
+//   // Store all properties initially
+//   const initialStoredProperties = storeProperties(properties);
+//   console.log("Initial properties stored:", initialStoredProperties);
+// });

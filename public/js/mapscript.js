@@ -14,6 +14,12 @@ const selectedStyle = { color: "#ff7800", weight: 3 };
 // Variable to store the currently selected layer
 let selectedLayer = null;
 
+/********************************************************************************
+ * ************************** Draw to select functions **************************
+ ********************************************************************************/
+let selectedMunicipalities = [];
+let matchingProperties = [];
+
 // Initialize the drawn items layer and add it to the map
 const drawnItems = new L.FeatureGroup();
 map.addLayer(drawnItems);
@@ -47,8 +53,6 @@ map.on(L.Draw.Event.CREATED, function (event) {
   const drawnPolygon = layer.toGeoJSON();
 
   // Arrays to store selected municipalities and their matching properties
-  const selectedMunicipalities = [];
-  const matchingProperties = [];
 
   // Check each feature in the geojsonLayer for intersection with the drawn polygon
   geojsonLayer.eachLayer((geoLayer) => {
@@ -66,7 +70,7 @@ map.on(L.Draw.Event.CREATED, function (event) {
       matchingProperties.push(...municipalityProperties);
 
       // Optionally, style the selected layer
-      geoLayer.setStyle({ color: "#ff7800", weight: 2 }); // Highlight the intersecting feature
+      geoLayer.setStyle(selectedStyle); // Highlight the intersecting feature
     } else {
       // Reset the style if not intersecting (optional)
       geoLayer.setStyle(defaultStyle);
@@ -98,7 +102,9 @@ function xmlLoader() {
   });
 }
 
-// Add polygon to the map
+/********************************************************************************
+ * ************************** Add polygons to the map ***************************
+ ********************************************************************************/
 fetch("malaga_towns.geojson")
   .then((response) => response.json())
   .then((data) => {
@@ -123,7 +129,7 @@ fetch("malaga_towns.geojson")
           console.log("Selected Municipality:", munName);
 
           // Filter properties by 'town' matching selected 'mun_name'
-          const matchingProperties = propertyData.filter(
+          matchingProperties = propertyData.filter(
             (property) => property.town === munName
           );
 
