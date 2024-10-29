@@ -1,29 +1,41 @@
 .leaflet-popup-content {
-  width: 300px;
-  max-height: 200px;
-  overflow-y: scroll;
+  width: 200px;
+  max-height: 300px;
   font-family: Arial, sans-serif;
 }
 
 .popup-title {
-  width: 300px;
+  width: 200px;
   font-size: 16px;
   font-weight: bold;
-  position: fixed;
   margin-bottom: 10px;
   background-color: white;
   padding: 0;
   color: var(--text-color);
+  text-align: center;
+}
+
+.popup-description {
+  font-size: 12px;
+  color: var(--text-color-light);
+  background-color: var(--background-color-dark);
+  padding: 3px 10px;
+  border-radius: 5px;
 }
 
 .popup-container {
+  overflow-y: scroll;
+  max-height: 200px;
+}
+
+.popup-rows {
   display: flex;
   flex-direction: row;
   margin-top: 10px;
   transition: all 0.3s ease;
 }
 
-.popup-container:hover {
+.popup-rows:hover {
   cursor: pointer;
   opacity: 0.8;
 }

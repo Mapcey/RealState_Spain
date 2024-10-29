@@ -8,6 +8,7 @@ async function loadXML() {
 }
 
 function storeProperties(properties) {
+  propertyData = []; // Clear the array before storing new properties
   properties.forEach((property) => {
     propertyData.push({
       id: property.getElementsByTagName("id")[0]?.textContent || "N/A",
@@ -58,9 +59,8 @@ function storeProperties(properties) {
     });
   });
   console.log(propertyData); // Logging the stored properties
-  return propertyData; // Returning the property data
+  return propertyData;
 }
-
 function filterProperties() {
   const type = document.getElementById("propertyType").value.toLowerCase();
   const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;

@@ -102,13 +102,16 @@ fetch("malaga_towns.geojson")
           );
 
           // Generate popup content based on matching properties
-          let popupContent = `<label class="popup-title">Properties in ${munName}</label class="popup-title"><br>`;
+          let popupContent = `<label class="popup-title">${munName} Town</label class="popup-title"><br>
+          <div class="popup-description">${matchingProperties.length}  Properties </div>
+          <div class="popup-container">
+          `;
 
           if (matchingProperties.length > 0) {
             matchingProperties.forEach((property) => {
               popupContent += `
 
-              <div class="popup-container" onclick="clicked()">
+              <div class="popup-rows" onclick="clicked()">
                 <div class="property-type">${property.type}</div>
                 <div class="property-price">${property.price}  ${property.currency}</div>
               </div>
@@ -117,6 +120,8 @@ fetch("malaga_towns.geojson")
           } else {
             popupContent += "<br>No matching properties found.";
           }
+
+          popupContent += `</div>`;
 
           // Bind the generated content to the popup and open it
           layer.bindPopup(popupContent).openPopup();
