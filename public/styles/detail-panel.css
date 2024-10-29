@@ -19,6 +19,6 @@
 }
 
 .detail-panel-body {
-  max-height: 10%;
+  max-height: 200px;
   overflow-y: scroll;
 }

@@ -127,6 +127,7 @@ fetch("malaga_towns.geojson")
 
           const munName = feature.properties.mun_name;
           console.log("Selected Municipality:", munName);
+          console.log(propertyData);
 
           // Filter properties by 'town' matching selected 'mun_name'
           matchingProperties = propertyData.filter(

@@ -109,6 +109,7 @@ function filterProperties() {
 
     console.log("Filtered properties:", filtered);
     filteredData = filtered;
+    detailPanel();
   } else {
     // ******* IF POLYGONS NOT SELECTED ********
     loadXML().then((xml) => {
@@ -141,15 +142,16 @@ function filterProperties() {
       const storedProperties = storeProperties(filtered);
       console.log("Filtered properties stored:", storedProperties);
       filteredData = storedProperties;
+      detailPanel();
     });
   }
 }
 
 // Load properties initially
-// loadXML().then((xml) => {
-//   const properties = Array.from(xml.getElementsByTagName("property"));
+loadXML().then((xml) => {
+  const properties = Array.from(xml.getElementsByTagName("property"));
 
-//   // Store all properties initially
-//   const initialStoredProperties = storeProperties(properties);
-//   console.log("Initial properties stored:", initialStoredProperties);
-// });
+  // Store all properties initially
+  const initialStoredProperties = storeProperties(properties);
+  console.log("Initial properties stored:", initialStoredProperties);
+});
