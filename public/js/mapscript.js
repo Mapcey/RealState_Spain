@@ -46,8 +46,9 @@ map.on(L.Draw.Event.CREATED, function (event) {
   // Convert the drawn polygon to GeoJSON
   const drawnPolygon = layer.toGeoJSON();
 
-  // Array to store selected properties within the polygon
-  const selectedProperties = [];
+  // Arrays to store selected municipalities and their matching properties
+  const selectedMunicipalities = [];
+  const matchingProperties = [];
 
   // Check each feature in the geojsonLayer for intersection with the drawn polygon
   geojsonLayer.eachLayer((geoLayer) => {
@@ -55,28 +56,38 @@ map.on(L.Draw.Event.CREATED, function (event) {
 
     // Check if the feature intersects with the drawn polygon
     if (turf.booleanIntersects(drawnPolygon, feature)) {
-      // Add the feature's properties to the selected list if it intersects
-      selectedProperties.push(feature.properties);
+      // Add the municipality name to the selectedMunicipalities array if it intersects
+      selectedMunicipalities.push(feature.properties.mun_name);
 
-      geoLayer.setStyle(selectedStyle); // Highlight the intersecting feature
+      // Add properties for the matching municipality
+      const municipalityProperties = propertyData.filter(
+        (property) => property.town === feature.properties.mun_name
+      );
+      matchingProperties.push(...municipalityProperties);
+
+      // Optionally, style the selected layer
+      geoLayer.setStyle({ color: "#ff7800", weight: 2 }); // Highlight the intersecting feature
     } else {
       // Reset the style if not intersecting (optional)
       geoLayer.setStyle(defaultStyle);
     }
   });
 
-  // Log selected properties in the console
-  if (selectedProperties.length > 0) {
-    console.log("Selected Properties within drawn polygon:");
-    selectedProperties.forEach((properties) => {
-      console.log(
-        `Municipality: ${properties.mun_name}, Type: ${properties.type}, Price: ${properties.price}`
-      );
-    });
+  // Log selected municipalities and matching properties in the console
+  if (selectedMunicipalities.length > 0) {
+    console.log(
+      "Selected Municipalities within drawn polygon:",
+      selectedMunicipalities
+    );
+    console.log(
+      "Matching Properties within selected municipalities:",
+      matchingProperties
+    );
   } else {
-    console.log("No properties found within the drawn polygon.");
+    console.log("No municipalities found within the drawn polygon.");
   }
 
+  // Remove the drawn polygon after selection
   drawnItems.removeLayer(layer);
 });
 
