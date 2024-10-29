@@ -27,30 +27,48 @@ const drawControl = new L.Control.Draw({
     polygon: {
       allowIntersection: false, // Prevent the user from creating intersecting polygons
     },
-    rectangle: false, // Disable rectangle drawing
-    // circle: false, // Disable circle drawing
-    marker: false, // Disable marker drawing
-    polyline: false, // Disable polyline drawing
+
+    // ------------- disabled tools -----------------
+    rectangle: false,
+    marker: false,
+    polyline: false,
+    circlemarker: false,
+    circle: false,
   },
 });
 map.addControl(drawControl);
 
 // Handle the creation of a new polygon
 map.on(L.Draw.Event.CREATED, function (event) {
-  const layer = event.layer;
+  const layer = event.layer; // The newly drawn layer (polygon)
   drawnItems.addLayer(layer);
 
-  // Check for intersections with GeoJSON polygons
+  // Convert the drawn polygon to GeoJSON
   const drawnPolygon = layer.toGeoJSON();
+
+  // Array to store selected properties within the polygon
   const selectedProperties = [];
 
-  //  >>>>>>>>>>>  selection logic <<<<<<<<<<<<
+  // Check each feature in the geojsonLayer for intersection with the drawn polygon
+  geojsonLayer.eachLayer((geoLayer) => {
+    const feature = geoLayer.feature;
 
-  // If there are selected properties, print their details
+    // Check if the feature intersects with the drawn polygon
+    if (turf.booleanIntersects(drawnPolygon, feature)) {
+      // Add the feature's properties to the selected list if it intersects
+      selectedProperties.push(feature.properties);
+
+      geoLayer.setStyle(selectedStyle); // Highlight the intersecting feature
+    } else {
+      // Reset the style if not intersecting (optional)
+      geoLayer.setStyle(defaultStyle);
+    }
+  });
+
+  // Log selected properties in the console
   if (selectedProperties.length > 0) {
-    console.log("Selected Properties:");
-    selectedProperties.forEach((layer) => {
-      const properties = layer.feature.properties;
+    console.log("Selected Properties within drawn polygon:");
+    selectedProperties.forEach((properties) => {
       console.log(
         `Municipality: ${properties.mun_name}, Type: ${properties.type}, Price: ${properties.price}`
       );
@@ -58,6 +76,8 @@ map.on(L.Draw.Event.CREATED, function (event) {
   } else {
     console.log("No properties found within the drawn polygon.");
   }
+
+  drawnItems.removeLayer(layer);
 });
 
 function xmlLoader() {
@@ -74,7 +94,7 @@ fetch("malaga_towns.geojson")
     // Add the GeoJSON layer to the map
     console.log("Polygons", data);
 
-    L.geoJSON(data, {
+    geojsonLayer = L.geoJSON(data, {
       style: defaultStyle,
       onEachFeature: function (feature, layer) {
         // Add a click event to handle "selection" of polygons
