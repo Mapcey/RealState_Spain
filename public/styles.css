@@ -1,58 +1,93 @@
-/* public/style.css */
-:root {
-  --primary-color: #007bff;
-  --primary-color-dark: #0056b3;
-  --primary-color-light: #66b2ff;
-
-  --secondary-color: #6c757d;
-  --secondary-color-dark: #5a6268;
-  --secondary-color-light: #adb5bd;
-
-  --background-color: #f8f9fa;
-  --background-color-dark: #e9ecef;
-  --background-color-alt: #ffffff;
-
-  --text-color: #212529;
-  --text-color-light: #495057;
-  --text-color-muted: #6c757d;
-}
-
-body,
-html {
+/* Reset styling */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
   margin: 0;
   padding: 0;
-  height: 100vh;
-  font-family: Arial, sans-serif;
 }
 
+/* Navbar */
 .nav-container {
-  background-color: var(--primary-color-dark);
-  color: var(--background-color);
-  text-align: left;
-  height: 50px;
+  background-color: #3b82f6;
+  color: #ffffff;
+  padding: 15px 20px;
+  font-size: 1.5em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
 }
 
-.nav-container label {
-  font-size: 40px;
-}
-
+/* Content Layout */
 .content {
   display: flex;
-  flex-direction: row;
-  height: calc(100% - 50px);
+  flex-wrap: wrap;
+  height: calc(100vh - 60px); /* Full viewport height minus navbar */
 }
 
+/* Sidebar */
 .filter-container {
+  flex: 1 1 300px;
+  max-width: 300px;
+  padding: 15px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  width: 20%;
-  background-color: var(--background-color);
-  overflow-y: scroll;
+  gap: 10px;
 }
 
+.sp-sub-titles {
+  font-size: 1em;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+/* Dropdowns and Input Styling */
+.dropdown,
+.text-input-range,
+.text-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #d1d5db;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+.input-group {
+  display: flex;
+  gap: 5px;
+}
+
+/* Filter Button */
+.filter-button {
+  background-color: #3b82f6;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.filter-button:hover {
+  background-color: #2563eb;
+}
+
+/* Map Container */
 .map-container {
-  width: 80%;
+  flex: 2 1 0;
+  margin: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  min-height: 60vh;
 }
 
 #map {
@@ -60,84 +95,95 @@ html {
   height: 100%;
 }
 
-/* *********************************************************** */
-
-.sp-sub-titles {
-  font-size: 16px;
-  font-weight: 400;
-  border: 1px solid --secondary-color-dark;
-  margin-bottom: 5px;
+/* Detail Panel */
+.detail-panel-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 90%;
+  max-width: 350px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }
 
-.dropdown {
-  padding: 4px 10px; /* Padding inside dropdown */
-  font-size: 14px;
-  border: 1px solid var(--secondary-color-light);
-  border-radius: 4px;
-  color: --text-color;
-  background-color: var(--background-color);
-  cursor: pointer;
-  margin: 5px 10px 20px 5px;
+.detail-panel-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px;
+  background-color: #3b82f6;
+  color: white;
 }
 
-/* Hover and focus styles */
-.dropdown:hover,
-.dropdown:focus {
-  border-color: --primary-color;
-  outline: none; /* Remove default outline */
-  background-color: var(--background-color);
+.detail-panel-body {
+  padding: 15px;
+  font-size: 0.9em;
+  color: #374151;
 }
 
-/* Option styling */
-.dropdown option {
-  padding: 8px; /* Padding for each option */
-  color: --text-color;
-  background-color: var(--background-color-dark);
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .content {
+    flex-direction: column;
+  }
+
+  .filter-container,
+  .map-container {
+    width: 100%;
+    max-width: none;
+    margin: 10px 0;
+  }
+
+  .filter-container {
+    order: 2;
+  }
+
+  .map-container {
+    order: 1;
+  }
+
+  #map {
+    min-height: 60vh;
+  }
 }
 
-.input-group {
-  display: flex;
-  flex-direction: row;
+@media (max-width: 768px) {
+  .filter-container {
+    padding: 10px;
+    flex: 1;
+  }
+
+  .filter-button {
+    font-size: 1em;
+    padding: 10px;
+  }
+
+  #map {
+    min-height: 50vh;
+  }
 }
 
-.text-input-range {
-  padding: 4px 10px;
-  font-size: 14px;
-  border: 1px solid var(--secondary-color-light);
-  border-radius: 4px;
-  color: --text-color;
-  background-color: var(--background-color);
-  cursor: pointer;
-  margin: 5px 10px 20px 5px;
-  width: 90px;
-  transition: all 0.3s ease;
-}
+@media (max-width: 480px) {
+  .nav-container {
+    font-size: 1.2em;
+    padding: 10px;
+  }
 
-.text-input {
-  padding: 4px 10px;
-  font-size: 14px;
-  border: 1px solid var(--secondary-color-light);
-  border-radius: 4px;
-  color: --text-color;
-  background-color: var(--background-color);
-  cursor: pointer;
-  margin: 5px 10px 20px 5px;
-  transition: all 0.3s ease;
-}
+  .filter-container {
+    padding: 8px;
+    font-size: 0.9em;
+  }
 
-.filter-button {
-  padding: 8px 10px;
-  font-size: 14px;
-  border: 1px solid var(--secondary-color-light);
-  border-radius: 4px;
-  color: --text-color;
-  background-color: var(--background-color);
-  cursor: pointer;
-  margin: 5px 10px 20px 5px;
-  transition: all 0.3s ease;
-}
+  .filter-button {
+    padding: 8px;
+    font-size: 0.9em;
+  }
 
-.filter-button:hover {
-  background-color: var(--primary-color);
-  color: var(--background-color);
+  .detail-panel-container {
+    bottom: 5px;
+    right: 5px;
+    width: 95%;
+    font-size: 0.9em;
+  }
 }
