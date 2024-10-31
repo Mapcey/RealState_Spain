@@ -122,6 +122,10 @@
   color: #374151;
 }
 
+.property-price{
+  color: #374151;
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .content {
