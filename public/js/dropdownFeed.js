@@ -16,39 +16,58 @@ function getUniquePropertyTypes(properties) {
 
   return Array.from(types); // Convert Set to Array for use in dropdown
 }
-
 function categorizePropertyTypes(types) {
   const categories = {
-    type1: [
+    residentialProperties: [
       "Villa",
-      "Penthouse",
-      "Apartment",
-      "Townhouse",
       "Bungalow",
-      "Restaurant",
-    ],
-    type2: [
-      "Hotel",
       "Semi-Detached House",
-      "Residential Plot",
-      "Middle Floor Apartment",
+      "Townhouse",
       "Finca - Cortijo",
+      "Apartment",
+      "Middle Floor Apartment",
+      "Top Floor Apartment",
+      "Ground Floor Apartment",
+      "Duplex",
+      "Penthouse",
+      "Penthouse Duplex",
+      "Apartment Complex",
+      "Top Floor Studio",
+      "Middle Floor Studio",
+      "Ground Floor Studio",
+      "Residential Plot"
     ],
-    other: [],
+    hospitalityAndLodging: [
+      "Hotel",
+      "Aparthotel",
+      "B&B",
+      "Hostel",
+      "Restaurant",
+      "Campsite"
+    ],
+    commercialProperties: [
+      "Business",
+      "Commercial Premises",
+      "Garage"
+    ]
   };
-
-  // Sort types into the defined categories
+  
+  // Initialize categorizedTypes with the defined categories and an "other" category
   const categorizedTypes = {
-    type1: [],
-    type2: [],
-    other: [],
+    residentialProperties: [],
+    hospitalityAndLodging: [],
+    commercialProperties: [],
+    other: []
   };
 
+  // Categorize each type
   types.forEach((type) => {
-    if (categories.type1.includes(type)) {
-      categorizedTypes.type1.push(type);
-    } else if (categories.type2.includes(type)) {
-      categorizedTypes.type2.push(type);
+    if (categories.residentialProperties.includes(type)) {
+      categorizedTypes.residentialProperties.push(type);
+    } else if (categories.hospitalityAndLodging.includes(type)) {
+      categorizedTypes.hospitalityAndLodging.push(type);
+    } else if (categories.commercialProperties.includes(type)) {
+      categorizedTypes.commercialProperties.push(type);
     } else {
       categorizedTypes.other.push(type);
     }
@@ -79,8 +98,9 @@ function populatePropertyTypeDropdown(categorizedTypes) {
   }
 
   // Populate dropdown with categorized types
-  addOptionsToGroup("Type 1", categorizedTypes.type1);
-  addOptionsToGroup("Type 2", categorizedTypes.type2);
+  addOptionsToGroup("Residential Properties", categorizedTypes.residentialProperties);
+  addOptionsToGroup("Hospitality and Lodging", categorizedTypes.hospitalityAndLodging);
+  addOptionsToGroup("Commercial Properties", categorizedTypes.commercialProperties);
   addOptionsToGroup("Other Types", categorizedTypes.other);
 }
 
