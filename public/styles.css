@@ -122,8 +122,22 @@
   color: #374151;
 }
 
-.property-price{
+.property-price {
   color: #374151;
+}
+
+/* propery count labels */
+/* style.css */
+.property-label-tooltip {
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  width: 35px;
+  height: 35px;
+  color: #3b82f6;
 }
 
 /* Responsive Design */
