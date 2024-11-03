@@ -2,7 +2,7 @@ let propertyData = [];
 let filteredData = [];
 
 async function loadXML() {
-  const response = await fetch("XML_Feeds_for_areas_copy.xml");
+  const response = await fetch("XML_Feeds_for_areas.xml");
   const xmlText = await response.text();
   const parser = new DOMParser();
   return parser.parseFromString(xmlText, "application/xml");
