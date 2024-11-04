@@ -140,6 +140,36 @@
   color: #3b82f6;
 }
 
+.property-count-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  transition: transform 0.2s, box-shadow 0.2s;
+  /* margin: 10px auto;  */
+}
+
+.property-count-container:hover {
+  transform: translateY(-5px); /* Subtle lift effect on hover */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
+}
+
+.property-count-container label {
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.property-count {
+  font-size: 24px;
+  font-weight: bold;
+  color: #2e86de; /* A modern, primary color */
+}
+
 /* Responsive Design */
 @media (max-width: 1024px) {
   .content {

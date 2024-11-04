@@ -1,5 +1,4 @@
 let propertyData = [];
-let filteredData = [];
 
 async function loadXML() {
   const response = await fetch("XML_Feeds_for_areas.xml");
@@ -10,6 +9,7 @@ async function loadXML() {
 
 function storeProperties(properties) {
   propertyData = []; // Clear the array before storing new properties
+
   properties.forEach((property) => {
     propertyData.push({
       id: property.getElementsByTagName("id")[0]?.textContent || "N/A",
@@ -63,6 +63,18 @@ function storeProperties(properties) {
   return propertyData;
 }
 
+function updatePropertyCount(count) {
+  const propertyCountSection = document.getElementById("propertyCountSection");
+  const propertyCountElement = document.getElementById("propertyCount");
+
+  if (count > 0) {
+    propertyCountSection.style.display = "block"; // Show the section
+    propertyCountElement.textContent = count;
+  } else {
+    propertyCountSection.style.display = "none"; // Hide the section
+  }
+}
+
 function filterProperties() {
   const type = document.getElementById("propertyType").value.toLowerCase();
   const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
@@ -109,7 +121,8 @@ function filterProperties() {
 
     console.log("Filtered properties:", filtered);
     filteredData = filtered;
-    detailPanel();
+    // detailPanel();                   <<<<<<<<<<<<<<< Detail panel triger - to remove
+    updatePropertyCount(filteredData.length);
   } else {
     // ******* IF POLYGONS NOT SELECTED ********
     loadXML().then((xml) => {
@@ -142,7 +155,10 @@ function filterProperties() {
       const storedProperties = storeProperties(filtered);
       console.log("Filtered properties stored:", storedProperties);
       filteredData = storedProperties;
-      detailPanel();
+      // detailPanel();                    <<<<<<<<<<<<<<< Detail panel triger - to remove
+
+      // Update the property count with the length of stored filtered data
+      updatePropertyCount(filteredData.length);
     });
   }
 }

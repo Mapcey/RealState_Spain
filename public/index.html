@@ -91,6 +91,18 @@
         <button class="filter-button" onclick="filterProperties()">
           Filter
         </button>
+
+        <div
+          id="propertyCountSection"
+          class="property-count-container"
+          style="display: none"
+        >
+          <label>Total selected properties</label>
+          <div class="property-count">
+            <span id="propertyCount">0</span>
+          </div>
+          <div>Browse more details >></div>
+        </div>
       </div>
 
       <!-- Map Pane -->
@@ -100,10 +112,10 @@
       <div id="properties-container"></div>
 
       <!-- Detail panel -->
-      <div id="detail-panel" class="detail-panel-container">
+      <!-- <div id="detail-panel" class="detail-panel-container">
         <div class="detail-panel-title">Property list</div>
         <div class="detail-panel-body">body content</div>
-      </div>
+      </div> -->
     </div>
 
     <!-- Leaflet JS -->
@@ -117,7 +129,7 @@
     <script src="script.js"></script>
     <script src="./js/mapscript.js"></script>
     <script src="./js/dropdownFeed.js"></script>
-    <script src="./js/detail-panel.js"></script>
+    <!-- <script src="./js/detail-panel.js"></script> -->
   </body>
 </html>
 
