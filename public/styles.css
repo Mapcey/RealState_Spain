@@ -17,6 +17,7 @@
   align-items: center;
   justify-content: center;
   font-weight: bold;
+  height: 60px;
 }
 
 /* Content Layout */
@@ -33,11 +34,13 @@
   padding: 15px;
   background-color: #f3f4f6;
   border-radius: 8px;
-  margin: 10px;
+  margin: 10px 0 10px 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   gap: 10px;
+  height: calc(100% - 20px);
+  overflow-y: scroll;
 }
 
 .sp-sub-titles {
@@ -88,6 +91,7 @@
   position: relative;
   display: flex;
   min-height: 60vh;
+  background-color: #2563eb;
 }
 
 #map {
