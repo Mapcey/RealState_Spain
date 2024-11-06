@@ -86,23 +86,26 @@ function filterProperties() {
   const bedrooms = parseInt(document.getElementById("bedrooms").value) || 0;
   const bathrooms = parseInt(document.getElementById("bathrooms").value) || 0;
 
-  // ****************   filtering logic   **********************
-  if (matchingProperties.length > 0) {
-    // Handle filtered properties with polygons selected
-    console.log("filter work for selected properties");
+  if (matchingProperties && matchingProperties.length > 0) {
+    // Filter selected properties when polygons are selected
     const filtered = matchingProperties.filter((property) => {
+      const matchesType = type === "" || property.type.toLowerCase() === type;
+      const withinPrice =
+        property.price >= minPrice && property.price <= maxPrice;
+      const withinSize =
+        property.surface_area.built >= minSize &&
+        property.surface_area.built <= maxSize;
+      const matchesBeds = bedrooms === 0 || property.beds === bedrooms;
+      const matchesBaths = bathrooms === 0 || property.baths === bathrooms;
+
       return (
-        (property.type === type || type === "") &&
-        property.price >= minPrice &&
-        property.price <= maxPrice &&
-        (property.beds === bedrooms || bedrooms === 0) &&
-        (property.baths === bathrooms || bathrooms === 0)
+        matchesType && withinPrice && withinSize && matchesBeds && matchesBaths
       );
     });
 
-    // Update property count
+    console.log("Filtered properties within selected polygons:", filtered);
+
     updatePropertyCount(filtered.length);
-    // Generate link for browsing
     generatePropertySearchLink(
       minPrice,
       maxPrice,
@@ -137,11 +140,9 @@ function filterProperties() {
         );
       });
 
-      // Store filtered properties
       const storedProperties = storeProperties(filtered);
       console.log("Filtered properties stored:", storedProperties);
       updatePropertyCount(storedProperties.length);
-      // Generate link for browsing
       generatePropertySearchLink(
         minPrice,
         maxPrice,

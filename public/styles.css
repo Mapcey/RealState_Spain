@@ -24,7 +24,7 @@
 .content {
   display: flex;
   flex-wrap: wrap;
-  height: calc(100vh - 60px); /* Full viewport height minus navbar */
+  height: calc(100vh); /* Full viewport height minus navbar */
 }
 
 /* Sidebar */
