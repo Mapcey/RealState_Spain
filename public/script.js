@@ -2,7 +2,7 @@ let propertyData = [];
 
 async function loadXML() {
   try {
-    const response = await fetch("XML_Feeds_for_areas.xml");
+    const response = await fetch("XML_dev.xml");
     const xmlText = await response.text();
     const parser = new DOMParser();
     return parser.parseFromString(xmlText, "application/xml");
@@ -153,6 +153,28 @@ function filterProperties() {
     });
   }
 }
+
+// ***** Clear Filters Function *****
+function clearFilters() {
+  document.getElementById("propertyType").value = "";
+  document.getElementById("minPrice").value = "";
+  document.getElementById("maxPrice").value = "";
+  document.getElementById("minSize").value = "";
+  document.getElementById("maxSize").value = "";
+  document.getElementById("bedrooms").value = "";
+  document.getElementById("bathrooms").value = "";
+
+  // Reset the displayed property count to 0
+  updatePropertyCount(0);
+
+  // Optionally, clear any filtered data or reset to default view
+  console.log("Filters cleared. Form inputs reset.");
+}
+
+// Attach the clearFilters function to the button click event
+document
+  .getElementById("clearFiltersButton")
+  .addEventListener("click", clearFilters);
 
 // Function to generate the property search link
 function generatePropertySearchLink(

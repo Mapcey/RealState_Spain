@@ -7,6 +7,15 @@
   padding: 0;
 }
 
+/* Content Layout */
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  height: 100vh;
+  font-family: "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    "Helvetica Neue", Arial, sans-serif;
+}
+
 /* Navbar */
 .nav-container {
   background-color: #3b82f6;
@@ -18,13 +27,6 @@
   justify-content: center;
   font-weight: bold;
   height: 60px;
-}
-
-/* Content Layout */
-.content {
-  display: flex;
-  flex-wrap: wrap;
-  height: calc(100vh); /* Full viewport height minus navbar */
 }
 
 /* Sidebar */
@@ -78,8 +80,23 @@
   text-align: center;
 }
 
+.clear-filter-button {
+  background-color: #8a8a8a;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 5px;
+  /* font-weight: bold; */
+  cursor: pointer;
+  text-align: center;
+}
+
 .filter-button:hover {
   background-color: #2563eb;
+}
+
+.clear-filter-button:hover {
+  background-color: #7c7c7c;
 }
 
 /* Map Container */
@@ -144,16 +161,19 @@
   color: #3b82f6;
 }
 
+/* ************************************************** */
+
 .property-count-container {
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  padding: 16px;
+  background-color: #f9f9f9; /* Light modern background */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s, box-shadow 0.2s;
-  /* margin: 10px auto;  */
+  max-width: 300px;
+  margin: 20px auto;
 }
 
 .property-count-container:hover {
@@ -162,16 +182,44 @@
 }
 
 .property-count-container label {
-  font-size: 16px;
-  font-weight: 600;
-  color: #333;
-  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  margin-bottom: 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .property-count {
-  font-size: 24px;
-  font-weight: bold;
-  color: #2e86de; /* A modern, primary color */
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50; /* Dark modern text color */
+  margin-bottom: 16px;
+}
+
+.browse-data-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #007bff; /* Primary blue color */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Subtle button shadow */
+}
+
+.browse-data-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 123, 255, 0.4); /* Enhanced shadow */
+}
+
+/* Button Active State */
+.browse-data-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
 }
 
 /* Responsive Design */
