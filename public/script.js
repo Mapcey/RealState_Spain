@@ -169,6 +169,7 @@ function clearFilters() {
 
   // Optionally, clear any filtered data or reset to default view
   console.log("Filters cleared. Form inputs reset.");
+  clearMapwhenClearButtonClicked();
 }
 
 // Attach the clearFilters function to the button click event
@@ -199,6 +200,7 @@ function generatePropertySearchLink(
 
   // Create or update the button to browse the link
   let browseButton = document.getElementById("browseLinkButton");
+  console.log("Generated link:", link);
 
   if (!browseButton) {
     // Create a new button if it doesn't exist

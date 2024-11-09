@@ -83,7 +83,7 @@ fetch("malaga_towns.geojson")
             matchingProperties = [...matchingProperties, ...propertiesForMun];
           }
 
-          console.log("Matching properties:", matchingProperties);
+          // console.log("Matching properties:", matchingProperties);
           updateLabels(); // Update labels for all selected polygons
         });
       },
@@ -91,5 +91,27 @@ fetch("malaga_towns.geojson")
   })
   .catch((error) => console.error("Error loading the GeoJSON file:", error));
 
+
+  function clearMapwhenClearButtonClicked() {
+    selectedLayers.forEach((layer, munName) => {
+      // Reset the layer style to default
+      layer.setStyle(defaultStyle);
+  
+      // Remove the label if it exists
+      if (layer.label) {
+        map.removeLayer(layer.label);
+        layer.unbindTooltip();
+      }
+  
+      // Remove this layer from the selectedLayers map
+      selectedLayers.delete(munName);
+  
+      // Filter out properties related to this polygon from matchingProperties
+      matchingProperties = matchingProperties.filter(
+        (property) => property.town !== munName
+      );
+    });
+  }
+  
 // Load property data after a delay
 setTimeout(xmlLoader, 1000); // Adjust delay as needed
