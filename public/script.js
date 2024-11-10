@@ -102,6 +102,7 @@ function filterProperties() {
   const bedrooms = parseInt(document.getElementById("bedrooms").value) || 0;
   const bathrooms = parseInt(document.getElementById("bathrooms").value) || 0;
 
+  // *******************
   if (matchingProperties && matchingProperties.length > 0) {
     // Filter selected properties when polygons are selected
     const filtered = matchingProperties.filter((property) => {
@@ -113,8 +114,8 @@ function filterProperties() {
       const withinSize =
         property.surface_area.built >= minSize &&
         property.surface_area.built <= maxSize;
-      const matchesBeds = bedrooms === 0 || property.beds === bedrooms;
-      const matchesBaths = bathrooms === 0 || property.baths === bathrooms;
+      const matchesBeds = bedrooms === 0 || property.beds >= bedrooms;
+      const matchesBaths = bathrooms === 0 || property.baths >= bathrooms;
 
       return (
         matchesType && withinPrice && withinSize && matchesBeds && matchesBaths
@@ -135,18 +136,20 @@ function filterProperties() {
     // Handle case when polygons are not selected
     loadXML().then((xml) => {
       const properties = Array.from(xml.getElementsByTagName("property"));
-      const filtered = properties.filter((p) => {
-        const propertyTypes = Array.from(p.getElementsByTagName("type")).map(
-          (typeNode) => typeNode.textContent.toLowerCase()
-        );
+      const filtered = properties.filter((property) => {
+        const propertyTypes = Array.from(
+          property.getElementsByTagName("type")
+        ).map((typeNode) => typeNode.textContent.toLowerCase());
         const propertyPrice =
-          parseFloat(p.getElementsByTagName("price")[0]?.textContent) || 0;
+          parseFloat(property.getElementsByTagName("price")[0]?.textContent) ||
+          0;
         const propertySize =
-          parseFloat(p.getElementsByTagName("size")[0]?.textContent) || 0;
+          parseFloat(property.getElementsByTagName("built")[0]?.textContent) ||
+          0;
         const propertyBedrooms =
-          parseInt(p.getElementsByTagName("beds")[0]?.textContent) || 0;
+          parseInt(property.getElementsByTagName("beds")[0]?.textContent) || 0;
         const propertyBathrooms =
-          parseInt(p.getElementsByTagName("baths")[0]?.textContent) || 0;
+          parseInt(property.getElementsByTagName("baths")[0]?.textContent) || 0;
 
         return (
           (selectedTypes.length === 0 ||
@@ -157,8 +160,8 @@ function filterProperties() {
           propertyPrice <= maxPrice &&
           propertySize >= minSize &&
           propertySize <= maxSize &&
-          (bedrooms === 0 || propertyBedrooms === bedrooms) &&
-          (bathrooms === 0 || propertyBathrooms === bathrooms)
+          (bedrooms === 0 || propertyBedrooms >= bedrooms) &&
+          (bathrooms === 0 || propertyBathrooms >= bathrooms)
         );
       });
 
