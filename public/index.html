@@ -35,14 +35,125 @@
     <div class="content">
       <!-- Sidebar Menu -->
       <div class="filter-container">
-        <label class="sp-sub-titles">Property Type: </label>
-        <select
-          title="property type"
-          id="propertyType"
-          class="dropdown"
-        ></select>
+        <label class="sp-sub-titles">Property Type </label>
+        <div class="dropdown">
+          <button class="dropdown-btn">Select Property Types</button>
+          <div class="dropdown-content" id="propertyType">
+            <h3>Apartment</h3>
+            <label
+              ><input type="checkbox" class="checkbox" value="Apartment" />
+              Apartment</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Ground Floor Apartment"
+              />
+              Ground Floor Apartment</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Middle Floor Apartment"
+              />
+              Middle Floor Apartment</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Top Floor Apartment"
+              />
+              Top Floor Apartment</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Ground Floor Studio"
+              />
+              Ground Floor Studio</label
+            >
+            <label
+              ><input type="checkbox" class="checkbox" value="Penthouse" />
+              Penthouse</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Penthouse Duplex"
+              />
+              Penthouse Duplex</label
+            >
 
-        <label class="sp-sub-titles">Price Range: </label>
+            <h3>House</h3>
+            <label
+              ><input type="checkbox" class="checkbox" value="Villa" />
+              Villa</label
+            >
+            <label
+              ><input type="checkbox" class="checkbox" value="Bungalow" />
+              Bungalow</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Semi-Detached House"
+              />
+              Semi-Detached House</label
+            >
+            <label
+              ><input type="checkbox" class="checkbox" value="Townhouse" />
+              Townhouse</label
+            >
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Finca - Cortijo"
+              />
+              Finca - Cortijo</label
+            >
+
+            <h3>Commercial Property</h3>
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Apartment Complex"
+              />
+              Apartment Complex</label
+            >
+            <label
+              ><input type="checkbox" class="checkbox" value="Restaurant" />
+              Restaurant</label
+            >
+            <label
+              ><input type="checkbox" class="checkbox" value="Hotel" />
+              Hotel</label
+            >
+            <label
+              ><input type="checkbox" class="checkbox" value="Hostel" />
+              Hostel</label
+            >
+
+            <h3>Land</h3>
+            <label
+              ><input
+                type="checkbox"
+                class="checkbox"
+                value="Residential Plot"
+              />
+              Residential Plot</label
+            >
+          </div>
+        </div>
+
+        <label class="sp-sub-titles">Price Range </label>
         <div class="input-group">
           <select title="price" class="text-input-range" id="minPrice">
             <option value="" disabled selected>Min</option>
@@ -79,7 +190,7 @@
           </select>
         </div>
 
-        <label class="sp-sub-titles">Size Range (sq m): </label>
+        <label class="sp-sub-titles">Size Range (sq m) </label>
         <div class="input-group">
           <select title="size" class="text-input-range" id="minSize">
             <option value="" disabled selected>Min</option>
@@ -116,7 +227,7 @@
           </select>
         </div>
 
-        <label class="sp-sub-titles">Bedrooms: </label>
+        <label class="sp-sub-titles">Bedrooms </label>
         <div class="input-group">
           <select title="beds" class="text-input" id="bedrooms">
             <option value="" disabled selected>Any</option>
@@ -129,7 +240,7 @@
           </select>
         </div>
 
-        <label class="sp-sub-titles">Bathrooms: </label>
+        <label class="sp-sub-titles">Bathrooms </label>
         <div class="input-group">
           <select title="baths" class="text-input" id="bathrooms">
             <option value="" disabled selected>Any</option>

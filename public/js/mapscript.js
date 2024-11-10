@@ -14,6 +14,7 @@ const selectedStyle = { color: "#ff7800", weight: 3 };
 // Variable to store selected layers and matching properties
 let selectedLayers = new Map();
 let matchingProperties = [];
+let selectedPolygonIds = []; // Store selected polygon IDs
 
 // Load XML and store property data
 function xmlLoader() {
@@ -53,6 +54,7 @@ fetch("malaga_towns.geojson")
       style: defaultStyle,
       onEachFeature: function (feature, layer) {
         const munName = feature.properties.mun_name;
+        const polygonId = feature.properties.id; // Assuming each polygon has an 'id' property
 
         // Click event for selecting/deselecting polygons
         layer.on("click", function () {
@@ -65,6 +67,11 @@ fetch("malaga_towns.geojson")
             // Remove properties related to this polygon from `matchingProperties`
             matchingProperties = matchingProperties.filter(
               (property) => property.town !== munName
+            );
+
+            // Remove the polygon ID from the selected list
+            selectedPolygonIds = selectedPolygonIds.filter(
+              (id) => id !== polygonId
             );
           } else {
             // Select the polygon and style it
@@ -81,9 +88,14 @@ fetch("malaga_towns.geojson")
 
             // Add these properties to `matchingProperties`
             matchingProperties = [...matchingProperties, ...propertiesForMun];
+
+            // Add the polygon ID to the selected list
+            selectedPolygonIds.push(polygonId);
           }
 
-          // console.log("Matching properties:", matchingProperties);
+          // Print the selected polygon IDs
+          console.log("Selected Polygon IDs:", selectedPolygonIds);
+
           updateLabels(); // Update labels for all selected polygons
         });
       },
@@ -91,27 +103,30 @@ fetch("malaga_towns.geojson")
   })
   .catch((error) => console.error("Error loading the GeoJSON file:", error));
 
+function clearMapwhenClearButtonClicked() {
+  selectedLayers.forEach((layer, munName) => {
+    // Reset the layer style to default
+    layer.setStyle(defaultStyle);
 
-  function clearMapwhenClearButtonClicked() {
-    selectedLayers.forEach((layer, munName) => {
-      // Reset the layer style to default
-      layer.setStyle(defaultStyle);
-  
-      // Remove the label if it exists
-      if (layer.label) {
-        map.removeLayer(layer.label);
-        layer.unbindTooltip();
-      }
-  
-      // Remove this layer from the selectedLayers map
-      selectedLayers.delete(munName);
-  
-      // Filter out properties related to this polygon from matchingProperties
-      matchingProperties = matchingProperties.filter(
-        (property) => property.town !== munName
-      );
-    });
-  }
-  
+    // Remove the label if it exists
+    if (layer.label) {
+      map.removeLayer(layer.label);
+      layer.unbindTooltip();
+    }
+
+    // Remove this layer from the selectedLayers map
+    selectedLayers.delete(munName);
+
+    // Filter out properties related to this polygon from matchingProperties
+    matchingProperties = matchingProperties.filter(
+      (property) => property.town !== munName
+    );
+  });
+
+  // Reset selected polygon IDs when clearing
+  selectedPolygonIds = [];
+  console.log("Selected Polygon IDs after clearing:", selectedPolygonIds);
+}
+
 // Load property data after a delay
 setTimeout(xmlLoader, 1000); // Adjust delay as needed
