@@ -187,11 +187,11 @@ function updatePropertyCount(count, isClear) {
     propertyCountSection.style.display = "block";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.display = "none"; // Hide the "No properties found" message
-  } else if(count == 0 && isClear){
-    propertyCountSection.style.display = "block";
+  } 
+  else if(count == 0 && isClear){
+    propertyCountSection.style.display = "none";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.display = "none"; // Hide the "No properties found" message
-    
   }
   else
   {
@@ -214,7 +214,6 @@ function clearFilters() {
   document.getElementById("maxSize").value                = "";
   document.getElementById("bedrooms").value               = "";
   document.getElementById("bathrooms").value              = "";
-  document.getElementById("propertyCountSection").style.display   = "none";
   // Reset the displayed property count to 0
   updatePropertyCount(0, true);
 

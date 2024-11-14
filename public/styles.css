@@ -241,6 +241,7 @@
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  text-align: center;
 }
 
 .property-count {
@@ -336,11 +337,11 @@
     height: 100px;
   }
   .property-count{
-    font-size: 20px;
+    font-size: 1.2em;
     margin-bottom: 3px;
   }
   #noPropertiesMessage{
-    font-size: 10px;
+    font-size: 1em;
     margin-top: -15px;
   }
 }
@@ -376,8 +377,11 @@
   }
 
   .filter-button {
-    font-size: 1em;
+    font-size: 1.2em;
     padding: 10px;
+  }
+  .clear-filter-button{
+    font-size: 1.2em;
   }
 
   #map {
@@ -386,47 +390,132 @@
   #noPropertiesMessage{
     text-align: center;
   }
-}
-
-@media (max-width: 480px) {
-  .nav-container {
-    font-size: 0.9em;
-    padding: 10px;
-  }
-  .filter-container {
-    padding: 2px;
-    font-size: 0.7em;
-  }
-
-  .filter-button {
-    padding: 8px;
-    font-size: 0.9em;
-  }
-  
-  .detail-panel-container {
-    bottom: 5px;
-    right: 5px;
-    width: 95%;
-    font-size: 0.9em;
-  }
-  .clear-filter-button{
-    padding: 8px;
-    font-size: 0.9em;
-  }
-  #noPropertiesMessage{
-    text-align: center;
-  }
-  .property-count-container label {
-    font-size: 10px;
+  property-count-container label {
+    font-size: 1.2em;
     font-weight: 500;
     color: #555;
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-
+  .property-count-container{
+    display: flex;
+    justify-content: center; /* Horizontally center */
+    align-items: center;     /* Vertically center */
+    height: 100%;            /* Optional: full height of the parent */
+  }
   .property-count {
-    font-size: 20px;
+    font-size: 1em;
+    font-weight: 700;
+    color: #2c3e50; /* Dark modern text color */
+    margin-bottom: 16px;
+  }
+
+  .browse-data-button {
+    padding: 10px 20px;
+    margin-left: 0px;
+    font-size: 1em;
+    font-weight: bold;
+    color: #ffffff;
+    background-color: #007bff; /* Primary blue color */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Subtle button shadow */
+  }
+
+  .sp-sub-titles {
+    font-size: 1.2em;
+    margin-top: 10px;
+    font-weight: bold;
+  }
+  .dropdown-btn{
+    font-size: 1.2em;
+  }
+  
+  /* Dropdowns and Input Styling */
+  
+  .text-input-range,
+  .text-input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 1.5em;
+  }
+  
+  .input-group {
+    display: flex;
+    gap: 5px;
+  }
+  
+  /* ********************* */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    border-radius: 4px;
+    font-size: 1em;
+  }
+  
+  .dropdown-btn {
+    padding: 10px;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    border-radius: 4px;
+    font-size: 1.5em;
+  }
+  
+  
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    font-size: 1em;
+    padding: 10px;
+  }
+  .filter-container {
+    padding: 2px;
+    font-size: 0.9;
+  }
+
+  .filter-button {
+    padding: 8px;
+    font-size: 1.2em;
+  }
+  
+  .detail-panel-container {
+    bottom: 5px;
+    right: 5px;
+    width: 95%;
+    font-size: 1em;
+  }
+  .clear-filter-button{
+    padding: 8px;
+    font-size: 1em;
+  }
+  #noPropertiesMessage{
+    text-align: center;
+  }
+  .property-count-container label {
+    font-size: 1em;
+    font-weight: 500;
+    color: #555;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .property-count-container{
+    height: 150px;
+  }
+  .property-count {
+    font-size: 1.2em;
     font-weight: 700;
     color: #2c3e50; /* Dark modern text color */
     margin-bottom: 16px;
@@ -435,7 +524,7 @@
   .browse-data-button {
     padding: 10px 20px;
     margin-left: 45px;
-    font-size: 10px;
+    font-size: 1em;
     font-weight: 600;
     color: #ffffff;
     background-color: #007bff; /* Primary blue color */
@@ -447,6 +536,6 @@
   }
 
   .browse-data-button {
-    margin-left: 30px;
+    margin-left: 45px;
   }
 }
