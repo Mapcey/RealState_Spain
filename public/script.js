@@ -64,6 +64,7 @@ function storeProperties(properties) {
   return propertyData;
 }
 
+
 function getSelectedPropertyTypes() {
   // Get all checkboxes inside the dropdown
   const checkboxes = document
@@ -112,7 +113,7 @@ function filterProperties() {
 
     console.log("Filtered properties within selected polygons:", filtered);
 
-    updatePropertyCount(filtered.length, false);
+    updatePropertyCount(filtered.length);
     generatePropertySearchLink(
       minPrice,
       maxPrice,
@@ -155,7 +156,7 @@ function filterProperties() {
 
       const storedProperties = storeProperties(filtered);
       console.log("Filtered properties stored:", storedProperties);
-      updatePropertyCount(storedProperties.length, false);
+      updatePropertyCount(storedProperties.length);
       generatePropertySearchLink(
         minPrice,
         maxPrice,
@@ -172,23 +173,24 @@ function updatePropertyCount(count, isClear) {
   const noPropertiesMessage = document.getElementById("noPropertiesMessage");
 
   if (count > 0) {
-    propertyCountSection.style.display = "block";
+    document.querySelector('.property-count-container').style.display = 'flex';
+    propertyCountSection.style.visibility = "visible";
     propertyCountElement.textContent = count;
-    noPropertiesMessage.style.display = "none"; // Hide the "No properties found" message
+    noPropertiesMessage.style.visibility = "hidden"; // Hide the "No properties found" message
   } 
   else if(count == 0 && isClear){
-    propertyCountSection.style.display = "none";
+    propertyCountSection.style.visibility = "hidden";
     propertyCountElement.textContent = count;
-    noPropertiesMessage.style.display = "none"; // Hide the "No properties found" message
+    noPropertiesMessage.style.visibility = "hidden"; // Hide the "No properties found" message
   }
   else
   {
-    propertyCountSection.style.display = "none";
+    document.querySelector('.property-count-container').style.display = 'flex';
+    propertyCountSection.style.visibility = "visible";
     propertyCountElement.textContent = count;
-    noPropertiesMessage.style.display = "none"; // Show the "No properties found" message
+    document.querySelector('#noPropertiesMessage').style.display = 'flex';
+    noPropertiesMessage.style.visibility = "visible"; // Show the "No properties found" message
   }
-  console.log(count.value);
-  console.log(isClear.value);
 }
 
 // ***** Clear Filters Function *****

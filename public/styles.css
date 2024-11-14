@@ -357,6 +357,12 @@
     font-size: 0.8em;
     margin-top: -10px;
   }
+  .dropdown-content h3{
+    font-size: 1em;
+  }
+  .checkbox label{
+    font-size: 1em;
+  }
 }
 @media (max-width: 1024px) {
   .content {
@@ -380,6 +386,12 @@
 
   #map {
     min-height: 60vh;
+  }
+  .dropdown-content h3{
+    font-size: 1em;
+  }
+  .checkbox label{
+    font-size: 1em;
   }
 }
 
@@ -455,7 +467,12 @@
     border-radius: 4px;
     font-size: 1em;
   }
-  
+  .dropdown-content h3{
+    font-size: 1em;
+  }
+  .checkbox label{
+    font-size: 1em;
+  }
 }
 
 @media (max-width: 480px) {
@@ -498,9 +515,12 @@
     letter-spacing: 0.5px;
   }
   .dropdown-btn{
-    font-size: 0.7em;
+    font-size: 1em;
   }
   .input-group, .text-input-range, .text-input,.sp-sub-titles{
+    font-size: 0.9em;
+  }
+  .dropdown{
     font-size: 0.8em;
   }
 }
