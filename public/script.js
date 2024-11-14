@@ -178,6 +178,21 @@ function filterProperties() {
     });
   }
 }
+function updatePropertyCount(count) {
+  const propertyCountSection = document.getElementById("propertyCountSection");
+  const propertyCountElement = document.getElementById("propertyCount");
+  const noPropertiesMessage = document.getElementById("noPropertiesMessage");
+
+  if (count > 0) {
+    propertyCountSection.style.display = "block";
+    propertyCountElement.textContent = count;
+    noPropertiesMessage.style.display = "none"; // Hide the "No properties found" message
+  } else {
+    propertyCountSection.style.display = "block";
+    propertyCountElement.textContent = count;
+    noPropertiesMessage.style.display = "block"; // Show the "No properties found" message
+  }
+}
 
 // ***** Clear Filters Function *****
 function clearFilters() {
