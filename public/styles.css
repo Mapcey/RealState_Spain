@@ -6,6 +6,71 @@
   margin: 0;
   padding: 0;
 }
+/* Property Count Section Container */
+.property-count-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center items vertically */
+  align-items: center;     /* Center items horizontally */
+  padding: 16px;
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 300px;
+  margin: 20px auto;
+  text-align: center;
+}
+
+/* Total selected properties label */
+.property-count-container label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #555;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+/* Property count */
+.property-count {
+  font-size: 28px;
+  font-weight: 700;
+  color: #2c3e50;
+  margin-bottom: 16px;
+}
+
+/* Browse Data Button */
+.browse-data-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+  text-align: center;
+}
+
+.browse-data-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 123, 255, 0.4);
+}
+
+/* Message displayed when no properties found */
+#noPropertiesMessage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 20px;
+}
 
 /* Content Layout */
 .content {
@@ -139,7 +204,7 @@
   padding: 12px;
   border: none;
   border-radius: 5px;
-  /* font-weight: bold; */
+  font-weight: bold;
   cursor: pointer;
   text-align: center;
 }
@@ -216,19 +281,6 @@
 
 /* ************************************************** */
 
-.property-count-container {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  padding: 16px;
-  background-color: #f9f9f9; /* Light modern background */
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.2s, box-shadow 0.2s;
-  max-width: 300px;
-  margin: 20px auto;
-}
-
 .property-count-container:hover {
   transform: translateY(-5px); /* Subtle lift effect on hover */
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15); /* Enhanced shadow on hover */
@@ -244,43 +296,11 @@
   text-align: center;
 }
 
-.property-count {
-  font-size: 28px;
-  font-weight: 700;
-  color: #2c3e50; /* Dark modern text color */
-  margin-bottom: 16px;
-}
-
-.browse-data-button {
-  padding: 10px 20px;
-  margin-left: 45px;
-  font-size: 14px;
-  font-weight: 600;
-  color: #ffffff;
-  background-color: #007bff; /* Primary blue color */
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: background-color 0.2s, transform 0.2s;
-  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Subtle button shadow */
-}
-
-.browse-data-button:hover {
-  background-color: #0056b3; /* Darker blue on hover */
-  transform: translateY(-2px);
-  box-shadow: 0 6px 10px rgba(0, 123, 255, 0.4); /* Enhanced shadow */
-}
 
 /* Button Active State */
 .browse-data-button:active {
   transform: translateY(1px);
   box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
-}
-.property-count{
-  text-align: center;
-}
-#noPropertiesMessage{
-  text-align: center;
 }
 /* Responsive Design */
 @media (max-width: 1366px) {
@@ -323,26 +343,19 @@
     font-size: 0.7em;
     text-align: center;
   }
-  .browse-data-button {
-    font-size: 0.7em;
-    text-align: center;
-    margin-left: 35px;
-    padding-top: 5px;
+  .property-count-container{
+    margin-top: 10px;
   }
   .filter-container{
     padding-top: 1px;
   }
-  .property-count-container
-  {
-    height: 100px;
-  }
-  .property-count{
-    font-size: 1.2em;
-    margin-bottom: 3px;
-  }
   #noPropertiesMessage{
-    font-size: 1em;
-    margin-top: -15px;
+    margin-top: -10px;
+  }
+  .browse-data-button{
+    height: 30px;
+    font-size: 0.8em;
+    margin-top: -10px;
   }
 }
 @media (max-width: 1024px) {
@@ -372,66 +385,38 @@
 
 @media (max-width: 768px) {
   .filter-container {
-    padding: 10px;
+    padding: 10px 10px 10px 10px;
     flex: 1;
   }
 
   .filter-button {
-    font-size: 1.2em;
+    font-size: 1em;
     padding: 10px;
   }
   .clear-filter-button{
-    font-size: 1.2em;
+    font-size: 1em;
   }
 
   #map {
     min-height: 50vh;
   }
-  #noPropertiesMessage{
-    text-align: center;
-  }
   property-count-container label {
-    font-size: 1.2em;
+    font-size: 1em;
     font-weight: 500;
     color: #555;
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-  .property-count-container{
-    display: flex;
-    justify-content: center; /* Horizontally center */
-    align-items: center;     /* Vertically center */
-    height: 100%;            /* Optional: full height of the parent */
-  }
-  .property-count {
-    font-size: 1em;
-    font-weight: 700;
-    color: #2c3e50; /* Dark modern text color */
-    margin-bottom: 16px;
-  }
 
-  .browse-data-button {
-    padding: 10px 20px;
-    margin-left: 0px;
-    font-size: 1em;
-    font-weight: bold;
-    color: #ffffff;
-    background-color: #007bff; /* Primary blue color */
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Subtle button shadow */
-  }
 
   .sp-sub-titles {
-    font-size: 1.2em;
+    font-size: 1em;
     margin-top: 10px;
     font-weight: bold;
   }
   .dropdown-btn{
-    font-size: 1.2em;
+    font-size: 1em;
   }
   
   /* Dropdowns and Input Styling */
@@ -443,9 +428,8 @@
     margin-top: 5px;
     border: 1px solid #d1d5db;
     border-radius: 4px;
-    font-size: 1.5em;
+    font-size: 1em;
   }
-  
   .input-group {
     display: flex;
     gap: 5px;
@@ -469,9 +453,8 @@
     width: 100%;
     text-align: left;
     border-radius: 4px;
-    font-size: 1.5em;
+    font-size: 1em;
   }
-  
   
 }
 
@@ -481,13 +464,12 @@
     padding: 10px;
   }
   .filter-container {
-    padding: 2px;
-    font-size: 0.9;
+    font-size: 1em;
   }
 
   .filter-button {
     padding: 8px;
-    font-size: 1.2em;
+    font-size: 0.8em;
   }
   
   .detail-panel-container {
@@ -498,44 +480,27 @@
   }
   .clear-filter-button{
     padding: 8px;
-    font-size: 1em;
+    font-size: 0.8em;
   }
-  #noPropertiesMessage{
-    text-align: center;
+  .property-count-container{
+    font-size: 0.8em;
+  }
+  .property-count
+  {
+    font-size: 0.8em;;
   }
   .property-count-container label {
-    font-size: 1em;
+    font-size: 0.8em;
     font-weight: 500;
     color: #555;
     margin-bottom: 8px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-  .property-count-container{
-    height: 150px;
+  .dropdown-btn{
+    font-size: 0.7em;
   }
-  .property-count {
-    font-size: 1.2em;
-    font-weight: 700;
-    color: #2c3e50; /* Dark modern text color */
-    margin-bottom: 16px;
-  }
-
-  .browse-data-button {
-    padding: 10px 20px;
-    margin-left: 45px;
-    font-size: 1em;
-    font-weight: 600;
-    color: #ffffff;
-    background-color: #007bff; /* Primary blue color */
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.2s, transform 0.2s;
-    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3); /* Subtle button shadow */
-  }
-
-  .browse-data-button {
-    margin-left: 45px;
+  .input-group, .text-input-range, .text-input,.sp-sub-titles{
+    font-size: 0.8em;
   }
 }

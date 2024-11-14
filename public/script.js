@@ -64,18 +64,6 @@ function storeProperties(properties) {
   return propertyData;
 }
 
-function updatePropertyCount(count) {
-  const propertyCountSection = document.getElementById("propertyCountSection");
-  const propertyCountElement = document.getElementById("propertyCount");
-
-  if (count > 0) {
-    propertyCountSection.style.display = "block";
-    propertyCountElement.textContent = count;
-  } else {
-    propertyCountSection.style.display = "none";
-  }
-}
-
 function getSelectedPropertyTypes() {
   // Get all checkboxes inside the dropdown
   const checkboxes = document
@@ -124,7 +112,7 @@ function filterProperties() {
 
     console.log("Filtered properties within selected polygons:", filtered);
 
-    updatePropertyCount(filtered.length);
+    updatePropertyCount(filtered.length, false);
     generatePropertySearchLink(
       minPrice,
       maxPrice,
@@ -167,7 +155,7 @@ function filterProperties() {
 
       const storedProperties = storeProperties(filtered);
       console.log("Filtered properties stored:", storedProperties);
-      updatePropertyCount(storedProperties.length);
+      updatePropertyCount(storedProperties.length, false);
       generatePropertySearchLink(
         minPrice,
         maxPrice,
@@ -195,10 +183,12 @@ function updatePropertyCount(count, isClear) {
   }
   else
   {
-    propertyCountSection.style.display = "block";
+    propertyCountSection.style.display = "none";
     propertyCountElement.textContent = count;
-    noPropertiesMessage.style.display = "block"; // Show the "No properties found" message
+    noPropertiesMessage.style.display = "none"; // Show the "No properties found" message
   }
+  console.log(count.value);
+  console.log(isClear.value);
 }
 
 // ***** Clear Filters Function *****
