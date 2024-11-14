@@ -178,7 +178,7 @@ function filterProperties() {
     });
   }
 }
-function updatePropertyCount(count) {
+function updatePropertyCount(count, isClear) {
   const propertyCountSection = document.getElementById("propertyCountSection");
   const propertyCountElement = document.getElementById("propertyCount");
   const noPropertiesMessage = document.getElementById("noPropertiesMessage");
@@ -187,7 +187,14 @@ function updatePropertyCount(count) {
     propertyCountSection.style.display = "block";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.display = "none"; // Hide the "No properties found" message
-  } else {
+  } else if(count == 0 && isClear){
+    propertyCountSection.style.display = "block";
+    propertyCountElement.textContent = count;
+    noPropertiesMessage.style.display = "none"; // Hide the "No properties found" message
+    
+  }
+  else
+  {
     propertyCountSection.style.display = "block";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.display = "block"; // Show the "No properties found" message
@@ -201,15 +208,15 @@ function clearFilters() {
     checkbox.checked = false;
   });
 
-  document.getElementById("minPrice").value = "";
-  document.getElementById("maxPrice").value = "";
-  document.getElementById("minSize").value = "";
-  document.getElementById("maxSize").value = "";
-  document.getElementById("bedrooms").value = "";
-  document.getElementById("bathrooms").value = "";
-
+  document.getElementById("minPrice").value               = "";
+  document.getElementById("maxPrice").value               = "";
+  document.getElementById("minSize").value                = "";
+  document.getElementById("maxSize").value                = "";
+  document.getElementById("bedrooms").value               = "";
+  document.getElementById("bathrooms").value              = "";
+  document.getElementById("propertyCountSection").style.display   = "none";
   // Reset the displayed property count to 0
-  updatePropertyCount(0);
+  updatePropertyCount(0, true);
 
   clearMapwhenClearButtonClicked();
 
