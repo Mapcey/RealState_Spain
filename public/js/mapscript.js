@@ -46,6 +46,10 @@ function updateLabels() {
   });
 }
 
+function getAssociatedCities(munName) {
+  return municipalityCityMapping[munName] || [];
+}
+
 // Add polygons to the map
 fetch("malaga_towns.geojson")
   .then((response) => response.json())
@@ -54,22 +58,25 @@ fetch("malaga_towns.geojson")
       style: defaultStyle,
       onEachFeature: function (feature, layer) {
         const munName = feature.properties.mun_name;
-        const polygonId = feature.properties.id; // Assuming each polygon has an 'id' property
+        const polygonId = feature.properties.id;
 
         // Click event for selecting/deselecting polygons
         layer.on("click", function () {
           if (selectedLayers.has(munName)) {
             // Deselect if already selected
             layer.setStyle(defaultStyle);
-            map.removeLayer(selectedLayers.get(munName).label); // Remove label from map
-            selectedLayers.delete(munName); // Remove from selected layers
+            map.removeLayer(selectedLayers.get(munName).label);
+            selectedLayers.delete(munName);
 
             // Remove properties related to this polygon from `matchingProperties`
-            matchingProperties = matchingProperties.filter(
-              (property) => property.town !== munName
-            );
+            matchingProperties = matchingProperties.filter((property) => {
+              const associatedCities = getAssociatedCities(munName);
+              return (
+                !associatedCities.includes(property.town) &&
+                property.town !== munName
+              );
+            });
 
-            // Remove the polygon ID from the selected list
             selectedPolygonIds = selectedPolygonIds.filter(
               (id) => id !== polygonId
             );
@@ -77,25 +84,22 @@ fetch("malaga_towns.geojson")
             // Select the polygon and style it
             layer.setStyle(selectedStyle);
 
-            // Filter properties for the selected municipality
-            const propertiesForMun = propertyData.filter(
-              (property) => property.town === munName
-            );
+            // Get properties for both the municipality and its associated cities
+            const associatedCities = getAssociatedCities(munName);
+            const propertiesForMun = propertyData.filter((property) => {
+              return (
+                property.town === munName ||
+                associatedCities.includes(property.town)
+              );
+            });
 
-            // Update layer with properties count and add to selected layers
             layer.propertiesCount = propertiesForMun.length;
             selectedLayers.set(munName, layer);
-
-            // Add these properties to `matchingProperties`
             matchingProperties = [...matchingProperties, ...propertiesForMun];
-
-            // Add the polygon ID to the selected list
             selectedPolygonIds.push(polygonId);
           }
 
-          // Print the selected polygon IDs
           console.log("Selected Polygon IDs:", selectedPolygonIds);
-
           updateLabels(); // Update labels for all selected polygons
         });
       },
