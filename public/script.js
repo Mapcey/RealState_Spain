@@ -1,6 +1,8 @@
-let propertyData = [];
-
-// ***************** FETCH XML *********************
+/**
+ * **********************************************************************************
+ * load XML, parses content, create allPropertyData arrary **************************
+ * **********************************************************************************
+ */
 async function loadXML() {
   try {
     // const response = await fetch("XML_dev.xml");
@@ -40,9 +42,11 @@ function parsePropertyData(properties) {
   }));
 }
 
+let allPropertyData = [];
+
 function storeProperties(properties) {
-  propertyData = parsePropertyData(properties);
-  return propertyData;
+  allPropertyData = parsePropertyData(properties);
+  return allPropertyData;
 }
 
 async function initializeProperties() {
@@ -50,12 +54,16 @@ async function initializeProperties() {
   if (!xml) return;
   const properties = Array.from(xml.getElementsByTagName("property"));
   storeProperties(properties);
-  console.log("Initial properties stored:", propertyData.length);
+  console.log("Initial properties stored:", allPropertyData.length);
 }
-// Initialize properties when the script loads
 initializeProperties();
+/******************************************************************************* */
 
-// ********* GET SELECTED PROPERTY ARRAY *********
+/**
+ * **********************************************************************************
+ * get selected property types, filter data *****************************************
+ * **********************************************************************************
+ */
 function getSelectedPropertyTypes() {
   // Get all checkboxes inside the dropdown
   const checkboxes = document
@@ -67,11 +75,9 @@ function getSelectedPropertyTypes() {
     .filter((checkbox) => checkbox.checked)
     .map((checkbox) => checkbox.value.toLowerCase());
 
-  // console.log(selectedTypes); // For debugging
   return selectedTypes;
 }
 
-// ********** DATA FILTER **********
 function filterProperties() {
   const selectedTypes = getSelectedPropertyTypes();
   const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
@@ -83,28 +89,18 @@ function filterProperties() {
   const bedrooms = parseInt(document.getElementById("bedrooms").value) || 0;
   const bathrooms = parseInt(document.getElementById("bathrooms").value) || 0;
 
-  console.log(matchingProperties);
-
-  // ----------- IF POLYGON HAS SELECTED ----------------
   if (matchingProperties && matchingProperties.length > 0) {
-    const filtered = matchingProperties.filter((property) => {
-      const propertyType = property.type.toLowerCase();
-      const matchesType =
-        selectedTypes.length === 0 || selectedTypes.includes(propertyType);
-      const withinPrice =
-        property.price >= minPrice && property.price <= maxPrice;
-      const withinSize =
-        property.surface_area.built >= minSize &&
-        property.surface_area.built <= maxSize;
-      const matchesBeds = bedrooms === 0 || property.beds >= bedrooms;
-      const matchesBaths = bathrooms === 0 || property.baths >= bathrooms;
-
-      return (
-        matchesType && withinPrice && withinSize && matchesBeds && matchesBaths
-      );
-    });
-
-    console.log("Filtered from selected polygons:", filtered);
+    // if polygon selected
+    const filtered = filterPropertiesByCriteria(
+      matchingProperties,
+      selectedTypes,
+      minPrice,
+      maxPrice,
+      minSize,
+      maxSize,
+      bedrooms,
+      bathrooms
+    );
 
     updatePropertyCount(filtered.length);
     generatePropertySearchLink(
@@ -115,57 +111,67 @@ function filterProperties() {
       minSize
     );
   } else {
-    // ----------- IF POLYGON HAS NOT SELECTED ----------------
-    loadXML().then((xml) => {
-      const properties = Array.from(xml.getElementsByTagName("property"));
-      const filtered = properties.filter((property) => {
-        const propertyTypes = Array.from(
-          property.getElementsByTagName("type")
-        ).map((typeNode) => typeNode.textContent.toLowerCase());
-        const propertyPrice =
-          parseFloat(property.getElementsByTagName("price")[0]?.textContent) ||
-          0;
-        const propertySize =
-          parseFloat(property.getElementsByTagName("built")[0]?.textContent) ||
-          0;
-        const propertyBedrooms =
-          parseInt(property.getElementsByTagName("beds")[0]?.textContent) || 0;
-        const propertyBathrooms =
-          parseInt(property.getElementsByTagName("baths")[0]?.textContent) || 0;
+    // if polygon not selected
+    const filtered = filterPropertiesByCriteria(
+      allPropertyData,
+      selectedTypes,
+      minPrice,
+      maxPrice,
+      minSize,
+      maxSize,
+      bedrooms,
+      bathrooms
+    );
 
-        return (
-          (selectedTypes.length === 0 ||
-            propertyTypes.some((propertyType) =>
-              selectedTypes.includes(propertyType)
-            )) &&
-          propertyPrice >= minPrice &&
-          propertyPrice <= maxPrice &&
-          propertySize >= minSize &&
-          propertySize <= maxSize &&
-          (bedrooms === 0 || propertyBedrooms >= bedrooms) &&
-          (bathrooms === 0 || propertyBathrooms >= bathrooms)
-        );
-      });
-
-      const storedProperties = storeProperties(filtered);
-
-      console.log("Filtered without polygon:", storedProperties);
-
-      updatePropertyCount(storedProperties.length);
-
-      generatePropertySearchLink(
-        minPrice,
-        maxPrice,
-        bedrooms,
-        bathrooms,
-        minSize
-      );
-
-      // reset
-      storeProperties(properties);
-    });
+    updatePropertyCount(filtered.length);
+    generatePropertySearchLink(
+      minPrice,
+      maxPrice,
+      bedrooms,
+      bathrooms,
+      minSize
+    );
   }
 }
+
+/**
+ * Filters properties based on the given criteria.
+ * @returns {Array} - A list of properties that match the criteria.
+ */
+function filterPropertiesByCriteria(
+  properties,
+  selectedTypes,
+  minPrice,
+  maxPrice,
+  minSize,
+  maxSize,
+  bedrooms,
+  bathrooms
+) {
+  return properties.filter((property) => {
+    const propertyType = property.type.toLowerCase();
+    const matchesType =
+      selectedTypes.length === 0 || selectedTypes.includes(propertyType);
+    const withinPrice =
+      property.price >= minPrice && property.price <= maxPrice;
+    const withinSize =
+      property.surface_area.built >= minSize &&
+      property.surface_area.built <= maxSize;
+    const matchesBeds = bedrooms === 0 || property.beds >= bedrooms;
+    const matchesBaths = bathrooms === 0 || property.baths >= bathrooms;
+
+    return (
+      matchesType && withinPrice && withinSize && matchesBeds && matchesBaths
+    );
+  });
+}
+/********************************************************************************** */
+
+/**
+ * **********************************************************************************
+ * update property count ************************************************************
+ * **********************************************************************************
+ */
 function updatePropertyCount(count, isClear) {
   const propertyCountSection = document.getElementById("propertyCountSection");
   const propertyCountElement = document.getElementById("propertyCount");
@@ -189,7 +195,11 @@ function updatePropertyCount(count, isClear) {
   }
 }
 
-// ***** Clear Filters Function *****
+/**
+ * **********************************************************************************
+ * clear the form fields, reset the map *********************************************
+ * **********************************************************************************
+ */
 function clearFilters() {
   // Loop through each checkbox and uncheck it
   document.querySelectorAll("#propertyType .checkbox").forEach((checkbox) => {
@@ -206,20 +216,19 @@ function clearFilters() {
   updatePropertyCount(0, true);
 
   clearMapwhenClearButtonClicked();
-
-  // Optionally, clear any filtered data or reset to default view
-  console.log("Filters cleared. Form inputs reset.");
-  // location.reload();
-
-  console.log("properties after clear filter:", propertyData.length);
 }
 
 // Attach the clearFilters function to the button click event
 document
   .getElementById("clearFiltersButton")
   .addEventListener("click", clearFilters);
+/********************************************************************************** */
 
-// Function to generate the property search link
+/**
+ * **********************************************************************************
+ * generate the url *****************************************************************
+ * **********************************************************************************
+ */
 function generatePropertySearchLink(
   minPrice,
   maxPrice,
@@ -253,8 +262,6 @@ function generatePropertySearchLink(
     "&bathrooms_max=&build_size_min=" +
     minSize +
     "&plot_size_min=&plot_size_min=&listing_type=";
-
-  // console.log(link);
 
   // Create or update the button to browse the link
   let browseButton = document.getElementById("browseLinkButton");

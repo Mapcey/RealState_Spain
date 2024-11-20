@@ -84,11 +84,11 @@ fetch("malaga_towns.geojson")
             // Select the polygon and style it
             layer.setStyle(selectedStyle);
 
-            console.log(propertyData);
+            console.log(allPropertyData);
 
             // Get properties for both the municipality and its associated cities
             const associatedCities = getAssociatedCities(munName);
-            const propertiesForMun = propertyData.filter((property) => {
+            const propertiesForMun = allPropertyData.filter((property) => {
               return (
                 property.town === munName ||
                 associatedCities.includes(property.town)
