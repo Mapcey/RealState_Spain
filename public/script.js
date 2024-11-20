@@ -1,3 +1,17 @@
+let isLoading = false;
+
+function setLoadingState(loading) {
+  console.log("t");
+
+  isLoading = loading;
+  const overlay = document.getElementById("loading-overlay");
+  if (isLoading) {
+    overlay.classList.remove("hidden");
+  } else {
+    overlay.classList.add("hidden");
+  }
+}
+
 /**
  * **********************************************************************************
  * load XML, parses content, create allPropertyData arrary **************************
@@ -5,6 +19,7 @@
  */
 async function loadXML() {
   try {
+    setLoadingState(true);
     // const response = await fetch("XML_dev.xml");
     const response = await fetch("XML_Feeds_for_areas.xml");
     const xmlText = await response.text();
@@ -12,6 +27,8 @@ async function loadXML() {
     return parser.parseFromString(xmlText, "application/xml");
   } catch (error) {
     console.error("Failed to load XML:", error);
+  } finally {
+    setLoadingState(false); // Hide the loading overlay
   }
 }
 

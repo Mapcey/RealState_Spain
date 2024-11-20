@@ -17,12 +17,12 @@ let matchingProperties = [];
 let selectedPolygonIds = []; // Store selected polygon IDs
 
 // Load XML and store property data
-function xmlLoader() {
-  loadXML().then((xml) => {
-    const properties = Array.from(xml.getElementsByTagName("property"));
-    storeProperties(properties); // Store all properties initially
-  });
-}
+// function xmlLoader() {
+//   loadXML().then((xml) => {
+//     const properties = Array.from(xml.getElementsByTagName("property"));
+//     storeProperties(properties); // Store all properties initially
+//   });
+// }
 
 function updateLabels() {
   selectedLayers.forEach((layer, munName) => {
@@ -133,4 +133,4 @@ function clearMapwhenClearButtonClicked() {
 }
 
 // Load property data after a delay
-setTimeout(xmlLoader, 1000); // Adjust delay as needed
+// setTimeout(xmlLoader, 1000); // Adjust delay as needed

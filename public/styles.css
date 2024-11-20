@@ -11,7 +11,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center; /* Center items vertically */
-  align-items: center;     /* Center items horizontally */
+  align-items: center; /* Center items horizontally */
   padding: 16px;
   background-color: #f9f9f9;
   border-radius: 12px;
@@ -226,7 +226,6 @@
   position: relative;
   display: flex;
   min-height: 60vh;
-  background-color: #2563eb;
 }
 
 #map {
@@ -296,71 +295,90 @@
   text-align: center;
 }
 
-
 /* Button Active State */
 .browse-data-button:active {
   transform: translateY(1px);
   box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
 }
+
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Shaded background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  font-size: 2em;
+  font-family: Arial, sans-serif;
+}
+.hidden {
+  display: none;
+}
+
 /* Responsive Design */
 @media (max-width: 1366px) {
-  .sp-sub-titles{
+  .sp-sub-titles {
     font-size: 0.8em;
     padding: 1px;
     margin-top: 2px;
   }
-  .dropdown{
+  .dropdown {
     font-size: 0.8em;
     padding: 1px;
     margin-top: 2px;
   }
-  .text-input-range{
+  .text-input-range {
     font-size: 0.8em;
     padding: 1px;
   }
-  .text-input{
+  .text-input {
     font-size: 0.8em;
     padding: 1px;
   }
-  .filter-button{
+  .filter-button {
     font-size: 0.8em;
     padding: 5px;
   }
-  .clear-filter-button{
+  .clear-filter-button {
     font-size: 0.8em;
     padding: 5px;
   }
-  .text-input-range{
+  .text-input-range {
     padding: 2px;
   }
-  .text-input{
+  .text-input {
     padding: 2px;
   }
-  .propertyCountSection{
+  .propertyCountSection {
     font-size: 0.8em;
   }
-  .property-count-container label{
+  .property-count-container label {
     font-size: 0.7em;
     text-align: center;
   }
-  .property-count-container{
+  .property-count-container {
     margin-top: 10px;
   }
-  .filter-container{
+  .filter-container {
     padding-top: 1px;
   }
-  #noPropertiesMessage{
+  #noPropertiesMessage {
     margin-top: -10px;
   }
-  .browse-data-button{
+  .browse-data-button {
     height: 30px;
     font-size: 0.8em;
     margin-top: -10px;
   }
-  .dropdown-content h3{
+  .dropdown-content h3 {
     font-size: 1em;
   }
-  .checkbox label{
+  .checkbox label {
     font-size: 1em;
   }
 }
@@ -387,10 +405,10 @@
   #map {
     min-height: 60vh;
   }
-  .dropdown-content h3{
+  .dropdown-content h3 {
     font-size: 1em;
   }
-  .checkbox label{
+  .checkbox label {
     font-size: 1em;
   }
 }
@@ -405,7 +423,7 @@
     font-size: 1em;
     padding: 10px;
   }
-  .clear-filter-button{
+  .clear-filter-button {
     font-size: 1em;
   }
 
@@ -421,18 +439,17 @@
     letter-spacing: 0.5px;
   }
 
-
   .sp-sub-titles {
     font-size: 1em;
     margin-top: 10px;
     font-weight: bold;
   }
-  .dropdown-btn{
+  .dropdown-btn {
     font-size: 1em;
   }
-  
+
   /* Dropdowns and Input Styling */
-  
+
   .text-input-range,
   .text-input {
     width: 100%;
@@ -446,7 +463,7 @@
     display: flex;
     gap: 5px;
   }
-  
+
   /* ********************* */
   .dropdown {
     position: relative;
@@ -455,7 +472,7 @@
     border-radius: 4px;
     font-size: 1em;
   }
-  
+
   .dropdown-btn {
     padding: 10px;
     background-color: #ffffff;
@@ -467,10 +484,10 @@
     border-radius: 4px;
     font-size: 1em;
   }
-  .dropdown-content h3{
+  .dropdown-content h3 {
     font-size: 1em;
   }
-  .checkbox label{
+  .checkbox label {
     font-size: 1em;
   }
 }
@@ -488,23 +505,22 @@
     padding: 8px;
     font-size: 0.8em;
   }
-  
+
   .detail-panel-container {
     bottom: 5px;
     right: 5px;
     width: 95%;
     font-size: 1em;
   }
-  .clear-filter-button{
+  .clear-filter-button {
     padding: 8px;
     font-size: 0.8em;
   }
-  .property-count-container{
+  .property-count-container {
     font-size: 0.8em;
   }
-  .property-count
-  {
-    font-size: 0.8em;;
+  .property-count {
+    font-size: 0.8em;
   }
   .property-count-container label {
     font-size: 0.8em;
@@ -514,13 +530,16 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
   }
-  .dropdown-btn{
+  .dropdown-btn {
     font-size: 1em;
   }
-  .input-group, .text-input-range, .text-input,.sp-sub-titles{
+  .input-group,
+  .text-input-range,
+  .text-input,
+  .sp-sub-titles {
     font-size: 0.9em;
   }
-  .dropdown{
+  .dropdown {
     font-size: 0.8em;
   }
 }
