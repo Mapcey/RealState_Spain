@@ -84,6 +84,8 @@ fetch("malaga_towns.geojson")
             // Select the polygon and style it
             layer.setStyle(selectedStyle);
 
+            console.log(propertyData);
+
             // Get properties for both the municipality and its associated cities
             const associatedCities = getAssociatedCities(munName);
             const propertiesForMun = propertyData.filter((property) => {
@@ -122,9 +124,7 @@ function clearMapwhenClearButtonClicked() {
     selectedLayers.delete(munName);
 
     // Filter out properties related to this polygon from matchingProperties
-    matchingProperties = matchingProperties.filter(
-      (property) => property.town !== munName
-    );
+    matchingProperties.length = 0;
   });
 
   // Reset selected polygon IDs when clearing

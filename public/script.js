@@ -1,5 +1,6 @@
 let propertyData = [];
 
+// ***************** FETCH XML *********************
 async function loadXML() {
   try {
     // const response = await fetch("XML_dev.xml");
@@ -15,8 +16,6 @@ async function loadXML() {
 function parsePropertyData(properties) {
   return properties.map((property) => ({
     id: property.getElementsByTagName("id")[0]?.textContent || "N/A",
-    date: property.getElementsByTagName("date")[0]?.textContent || "N/A",
-    ref: property.getElementsByTagName("ref")[0]?.textContent || "N/A",
     price:
       parseFloat(property.getElementsByTagName("price")[0]?.textContent) || 0,
     currency:
@@ -29,12 +28,6 @@ function parsePropertyData(properties) {
     town: property.getElementsByTagName("town")[0]?.textContent || "N/A",
     province:
       property.getElementsByTagName("province")[0]?.textContent || "N/A",
-    location: {
-      latitude:
-        property.getElementsByTagName("latitude")[0]?.textContent || "N/A",
-      longitude:
-        property.getElementsByTagName("longitude")[0]?.textContent || "N/A",
-    },
     beds: parseInt(property.getElementsByTagName("beds")[0]?.textContent) || 0,
     baths:
       parseInt(property.getElementsByTagName("baths")[0]?.textContent) || 0,
@@ -44,18 +37,6 @@ function parsePropertyData(properties) {
       plot:
         parseFloat(property.getElementsByTagName("plot")[0]?.textContent) || 0,
     },
-    features: Array.from(property.getElementsByTagName("feature")).map(
-      (feature) => feature.getElementsByTagName("en")[0]?.textContent || "N/A"
-    ),
-    desc:
-      property.getElementsByTagName("desc")[0]?.getElementsByTagName("en")[0]
-        ?.textContent || "N/A",
-    title:
-      property.getElementsByTagName("title")[0]?.getElementsByTagName("en")[0]
-        ?.textContent || "N/A",
-    images: Array.from(property.getElementsByTagName("image")).map(
-      (image) => image.getElementsByTagName("url")[0]?.textContent || "N/A"
-    ),
   }));
 }
 
@@ -64,7 +45,17 @@ function storeProperties(properties) {
   return propertyData;
 }
 
+async function initializeProperties() {
+  const xml = await loadXML();
+  if (!xml) return;
+  const properties = Array.from(xml.getElementsByTagName("property"));
+  storeProperties(properties);
+  console.log("Initial properties stored:", propertyData.length);
+}
+// Initialize properties when the script loads
+initializeProperties();
 
+// ********* GET SELECTED PROPERTY ARRAY *********
 function getSelectedPropertyTypes() {
   // Get all checkboxes inside the dropdown
   const checkboxes = document
@@ -76,10 +67,11 @@ function getSelectedPropertyTypes() {
     .filter((checkbox) => checkbox.checked)
     .map((checkbox) => checkbox.value.toLowerCase());
 
-  console.log(selectedTypes); // For debugging
+  // console.log(selectedTypes); // For debugging
   return selectedTypes;
 }
 
+// ********** DATA FILTER **********
 function filterProperties() {
   const selectedTypes = getSelectedPropertyTypes();
   const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
@@ -91,9 +83,10 @@ function filterProperties() {
   const bedrooms = parseInt(document.getElementById("bedrooms").value) || 0;
   const bathrooms = parseInt(document.getElementById("bathrooms").value) || 0;
 
-  // *******************
+  console.log(matchingProperties);
+
+  // ----------- IF POLYGON HAS SELECTED ----------------
   if (matchingProperties && matchingProperties.length > 0) {
-    // Filter selected properties when polygons are selected
     const filtered = matchingProperties.filter((property) => {
       const propertyType = property.type.toLowerCase();
       const matchesType =
@@ -111,7 +104,7 @@ function filterProperties() {
       );
     });
 
-    console.log("Filtered properties within selected polygons:", filtered);
+    console.log("Filtered from selected polygons:", filtered);
 
     updatePropertyCount(filtered.length);
     generatePropertySearchLink(
@@ -122,7 +115,7 @@ function filterProperties() {
       minSize
     );
   } else {
-    // Handle case when polygons are not selected
+    // ----------- IF POLYGON HAS NOT SELECTED ----------------
     loadXML().then((xml) => {
       const properties = Array.from(xml.getElementsByTagName("property"));
       const filtered = properties.filter((property) => {
@@ -155,8 +148,11 @@ function filterProperties() {
       });
 
       const storedProperties = storeProperties(filtered);
-      console.log("Filtered properties stored:", storedProperties);
+
+      console.log("Filtered without polygon:", storedProperties);
+
       updatePropertyCount(storedProperties.length);
+
       generatePropertySearchLink(
         minPrice,
         maxPrice,
@@ -164,6 +160,9 @@ function filterProperties() {
         bathrooms,
         minSize
       );
+
+      // reset
+      storeProperties(properties);
     });
   }
 }
@@ -173,22 +172,19 @@ function updatePropertyCount(count, isClear) {
   const noPropertiesMessage = document.getElementById("noPropertiesMessage");
 
   if (count > 0) {
-    document.querySelector('.property-count-container').style.display = 'flex';
+    document.querySelector(".property-count-container").style.display = "flex";
     propertyCountSection.style.visibility = "visible";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.visibility = "hidden"; // Hide the "No properties found" message
-  } 
-  else if(count == 0 && isClear){
+  } else if (count == 0 && isClear) {
     propertyCountSection.style.visibility = "hidden";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.visibility = "hidden"; // Hide the "No properties found" message
-  }
-  else
-  {
-    document.querySelector('.property-count-container').style.display = 'flex';
+  } else {
+    document.querySelector(".property-count-container").style.display = "flex";
     propertyCountSection.style.visibility = "visible";
     propertyCountElement.textContent = count;
-    document.querySelector('#noPropertiesMessage').style.display = 'flex';
+    document.querySelector("#noPropertiesMessage").style.display = "flex";
     noPropertiesMessage.style.visibility = "visible"; // Show the "No properties found" message
   }
 }
@@ -200,12 +196,12 @@ function clearFilters() {
     checkbox.checked = false;
   });
 
-  document.getElementById("minPrice").value               = "";
-  document.getElementById("maxPrice").value               = "";
-  document.getElementById("minSize").value                = "";
-  document.getElementById("maxSize").value                = "";
-  document.getElementById("bedrooms").value               = "";
-  document.getElementById("bathrooms").value              = "";
+  document.getElementById("minPrice").value = "";
+  document.getElementById("maxPrice").value = "";
+  document.getElementById("minSize").value = "";
+  document.getElementById("maxSize").value = "";
+  document.getElementById("bedrooms").value = "";
+  document.getElementById("bathrooms").value = "";
   // Reset the displayed property count to 0
   updatePropertyCount(0, true);
 
@@ -214,6 +210,8 @@ function clearFilters() {
   // Optionally, clear any filtered data or reset to default view
   console.log("Filters cleared. Form inputs reset.");
   // location.reload();
+
+  console.log("properties after clear filter:", propertyData.length);
 }
 
 // Attach the clearFilters function to the button click event
@@ -254,9 +252,9 @@ function generatePropertySearchLink(
     bathrooms +
     "&bathrooms_max=&build_size_min=" +
     minSize +
-    "&plot_size_min=&plot_size_min=&listing_type=resale";
+    "&plot_size_min=&plot_size_min=&listing_type=";
 
-  console.log(link);
+  // console.log(link);
 
   // Create or update the button to browse the link
   let browseButton = document.getElementById("browseLinkButton");
@@ -274,17 +272,6 @@ function generatePropertySearchLink(
   browseButton.onclick = () => window.open(link, "_blank");
   browseButton.style.display = "inline"; // Show the button
 }
-async function initializeProperties() {
-  const xml = await loadXML();
-  if (!xml) return;
-
-  const properties = Array.from(xml.getElementsByTagName("property"));
-  storeProperties(properties);
-  console.log("Initial properties stored:", propertyData);
-}
-
-// Initialize properties when the script loads
-initializeProperties();
 
 // https://costadelsolspecialist.com/
 // property-search/
@@ -310,17 +297,3 @@ initializeProperties();
 // &plot_size_min=50&plot_size_min=150
 // &features%5B%5D=28
 // &listing_type=resale
-
-// const link =
-// "https://costadelsolspecialist.com/property-search/?location%5B%5D=&search_location_1=&list_price_min=" +
-// minPrice +
-// "&list_price_max=" +
-// maxPrice +
-// "&bedrooms_min=" +
-// bedroomsValue +
-// "&bedrooms_max=&ref_no=&bathrooms_min=" +
-// bathroomsValue +
-// "&bathrooms_max=&build_size_min=" +
-// minSize +
-// "&plot_size_min=&plot_size_min=&listing_type=resale";
-// window.open(link, "_blank");
