@@ -140,6 +140,7 @@
   width: 100%;
   border-radius: 4px;
   font-size: 1em;
+  border-color: transparent;
 }
 
 .dropdown-btn {
@@ -264,20 +265,6 @@
   color: #374151;
 }
 
-/* propery count labels */
-/* style.css */
-.property-label-tooltip {
-  /* background-color: rgba(255, 255, 255, 0.9); */
-  display: flex;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: bold;
-  border-radius: 20px;
-  width: 35px;
-  height: 35px;
-  color: #3b82f6;
-}
-
 /* ************************************************** */
 
 .property-count-container:hover {
@@ -319,6 +306,31 @@
 .hidden {
   display: none;
 }
+
+/* ******************************** */
+/* propery count labels */
+/* style.css */
+.property-label-tooltip {
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  width: 35px;
+  height: 35px;
+  color: #3b82f6;
+}
+
+.filtered-label {
+  color: #ff7800; /* Orange for filtered count */
+}
+
+.default-label {
+  color: #3388ff; /* Blue for all properties count */
+}
+
+/* ********************************* */
 
 /* Responsive Design */
 @media (max-width: 1366px) {

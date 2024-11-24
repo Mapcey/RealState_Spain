@@ -1,8 +1,6 @@
 let isLoading = false;
 
 function setLoadingState(loading) {
-  console.log("t");
-
   isLoading = loading;
   const overlay = document.getElementById("loading-overlay");
   if (isLoading) {
@@ -95,7 +93,7 @@ function getSelectedPropertyTypes() {
   return selectedTypes;
 }
 
-// let filtered = [];
+let filtered = [];
 
 function filterProperties() {
   const selectedTypes = getSelectedPropertyTypes();
@@ -110,7 +108,8 @@ function filterProperties() {
 
   if (matchingProperties && matchingProperties.length > 0) {
     // if polygon selected
-    const filtered = filterPropertiesByCriteria(
+    // filtered.length = 0;
+    filtered = filterPropertiesByCriteria(
       matchingProperties,
       selectedTypes,
       minPrice,
@@ -131,7 +130,8 @@ function filterProperties() {
     );
   } else {
     // if polygon not selected
-    const filtered = filterPropertiesByCriteria(
+    // filtered.length = 0;
+    filtered = filterPropertiesByCriteria(
       allPropertyData,
       selectedTypes,
       minPrice,
@@ -196,6 +196,8 @@ function updatePropertyCount(count, isClear) {
   const propertyCountElement = document.getElementById("propertyCount");
   const noPropertiesMessage = document.getElementById("noPropertiesMessage");
 
+  console.log(filtered);
+
   if (count > 0) {
     document.querySelector(".property-count-container").style.display = "flex";
     propertyCountSection.style.visibility = "visible";
@@ -235,6 +237,8 @@ function clearFilters() {
   updatePropertyCount(0, true);
 
   clearMapwhenClearButtonClicked();
+
+  filtered.length = 0;
 }
 
 // Attach the clearFilters function to the button click event

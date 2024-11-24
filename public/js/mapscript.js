@@ -16,26 +16,43 @@ let selectedLayers = new Map();
 let matchingProperties = [];
 let selectedPolygonIds = []; // Store selected polygon IDs
 
-// Load XML and store property data
-// function xmlLoader() {
-//   loadXML().then((xml) => {
-//     const properties = Array.from(xml.getElementsByTagName("property"));
-//     storeProperties(properties); // Store all properties initially
-//   });
-// }
+document.getElementById("filter-button").addEventListener("click", () => {
+  // Assuming 'filtered' is updated with new property data elsewhere in the app
+  updateLabels(); // Recalculate and update labels with filtered data
+});
 
 function updateLabels() {
   selectedLayers.forEach((layer, munName) => {
-    const propertyCount = layer.propertiesCount;
+    let propertyCount = 0; // Initialize count variable
+    let labelClass = "default-label";
+
+    if (filtered.length > 0) {
+      console.log("for filtered properties");
+      // Count only properties related to this municipality in the filtered array
+      const associatedCities = getAssociatedCities(munName);
+      propertyCount = filtered.filter(
+        (property) =>
+          property.town === munName || associatedCities.includes(property.town)
+      ).length;
+      labelClass = "filtered-label";
+    } else {
+      console.log("for all properties");
+      // If no filter is applied, count properties from all data
+      const associatedCities = getAssociatedCities(munName);
+      propertyCount = allPropertyData.filter(
+        (property) =>
+          property.town === munName || associatedCities.includes(property.town)
+      ).length;
+    }
 
     // Remove existing tooltip if present
     if (layer.label) {
       layer.unbindTooltip();
     }
 
-    // Bind a tooltip as a label
-    layer.bindTooltip(`${propertyCount}`, {
-      className: "property-label-tooltip", // Define your CSS for tooltip
+    // Bind a tooltip as a label with updated count
+    layer.bindTooltip(`<span class="${labelClass}">${propertyCount}</span>`, {
+      className: "property-label-tooltip",
       permanent: true,
       direction: "center",
       opacity: 0.9,
@@ -84,7 +101,7 @@ fetch("malanga_poly_removed.geojson")
             // Select the polygon and style it
             layer.setStyle(selectedStyle);
 
-            console.log(allPropertyData);
+            // console.log(allPropertyData);
 
             // Get properties for both the municipality and its associated cities
             const associatedCities = getAssociatedCities(munName);
@@ -101,7 +118,7 @@ fetch("malanga_poly_removed.geojson")
             selectedPolygonIds.push(polygonId);
           }
 
-          console.log("Selected Polygon IDs:", selectedPolygonIds);
+          // console.log("Selected Polygon IDs:", selectedPolygonIds);
           updateLabels(); // Update labels for all selected polygons
         });
       },
