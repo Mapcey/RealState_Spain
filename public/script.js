@@ -95,6 +95,8 @@ function getSelectedPropertyTypes() {
   return selectedTypes;
 }
 
+// let filtered = [];
+
 function filterProperties() {
   const selectedTypes = getSelectedPropertyTypes();
   const minPrice = parseFloat(document.getElementById("minPrice").value) || 0;

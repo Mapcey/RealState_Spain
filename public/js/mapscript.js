@@ -51,7 +51,7 @@ function getAssociatedCities(munName) {
 }
 
 // Add polygons to the map
-fetch("malaga_towns.geojson")
+fetch("malanga_poly_removed.geojson")
   .then((response) => response.json())
   .then((data) => {
     L.geoJSON(data, {
