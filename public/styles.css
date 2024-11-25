@@ -332,6 +332,33 @@
 
 /* ********************************* */
 
+.map-title {
+  position: absolute;
+  /* background-color: white; */
+  text-align: center;
+  z-index: 1000;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 5px 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.default-map-title-label {
+  color: rgb(20, 20, 20);
+}
+
+.result-map-title-label {
+  color: rgb(5, 146, 0);
+}
+
+.no-result-map-title-label {
+  color: rgb(190, 0, 0);
+}
+
 /* Responsive Design */
 @media (max-width: 1366px) {
   .sp-sub-titles {

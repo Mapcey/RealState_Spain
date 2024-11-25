@@ -26,7 +26,7 @@ function updateLabels() {
     let propertyCount = 0; // Initialize count variable
     let labelClass = "default-label";
 
-    if (filtered.length > 0) {
+    if (filtered.length > 0 || isFiltered) {
       console.log("for filtered properties");
       // Count only properties related to this municipality in the filtered array
       const associatedCities = getAssociatedCities(munName);

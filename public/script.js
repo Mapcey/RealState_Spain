@@ -94,6 +94,10 @@ function getSelectedPropertyTypes() {
 }
 
 let filtered = [];
+let isFiltered = false;
+
+let mapTitle = "Select areas for search properties";
+const titleLabel = document.getElementById("map-title-label");
 
 function filterProperties() {
   const selectedTypes = getSelectedPropertyTypes();
@@ -128,6 +132,11 @@ function filterProperties() {
       bathrooms,
       minSize
     );
+
+    isFiltered = true;
+
+    mapTitle = "Available properties";
+    titleLabel.className = "result-map-title-label ";
   } else {
     // if polygon not selected
     // filtered.length = 0;
@@ -141,7 +150,9 @@ function filterProperties() {
       bedrooms,
       bathrooms
     );
-
+    mapTitle = "Select areas for see Available properties";
+    titleLabel.className = "result-map-title-label ";
+    console.log("fff");
     updatePropertyCount(filtered.length);
     generatePropertySearchLink(
       minPrice,
@@ -150,7 +161,10 @@ function filterProperties() {
       bathrooms,
       minSize
     );
+    isFiltered = true;
   }
+
+  document.getElementById("map-title-label").innerText = mapTitle;
 }
 
 /**
@@ -196,7 +210,7 @@ function updatePropertyCount(count, isClear) {
   const propertyCountElement = document.getElementById("propertyCount");
   const noPropertiesMessage = document.getElementById("noPropertiesMessage");
 
-  console.log(filtered);
+  // console.log(filtered);
 
   if (count > 0) {
     document.querySelector(".property-count-container").style.display = "flex";
@@ -213,6 +227,9 @@ function updatePropertyCount(count, isClear) {
     propertyCountElement.textContent = count;
     document.querySelector("#noPropertiesMessage").style.display = "flex";
     noPropertiesMessage.style.visibility = "visible"; // Show the "No properties found" message
+    mapTitle = " No properties available";
+    titleLabel.className = "no-result-map-title-label";
+    document.getElementById("map-title-label").innerText = mapTitle;
   }
 }
 
@@ -239,6 +256,11 @@ function clearFilters() {
   clearMapwhenClearButtonClicked();
 
   filtered.length = 0;
+  isFiltered = false;
+
+  mapTitle = "Select areas for search properties";
+  document.getElementById("map-title-label").innerText = mapTitle;
+  titleLabel.className = "default-map-title-label";
 }
 
 // Attach the clearFilters function to the button click event
