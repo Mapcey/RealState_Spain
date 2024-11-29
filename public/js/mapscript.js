@@ -10,6 +10,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 // Define styles for normal and selected polygons
 const defaultStyle = { color: "#3388ff", weight: 1 };
 const selectedStyle = { color: "#ff7800", weight: 3 };
+const zeroPropertyStyle = { color: "#ff0000", weight: 0 };
 
 // Variable to store selected layers and matching properties
 let selectedLayers = new Map();
@@ -67,64 +68,91 @@ function getAssociatedCities(munName) {
   return municipalityCityMapping[munName] || [];
 }
 
-// Add polygons to the map
-fetch("malanga_poly_removed.geojson")
-  .then((response) => response.json())
-  .then((data) => {
-    L.geoJSON(data, {
-      style: defaultStyle,
-      onEachFeature: function (feature, layer) {
-        const munName = feature.properties.mun_name;
-        const polygonId = feature.properties.id;
-
-        // Click event for selecting/deselecting polygons
-        layer.on("click", function () {
-          if (selectedLayers.has(munName)) {
-            // Deselect if already selected
-            layer.setStyle(defaultStyle);
-            map.removeLayer(selectedLayers.get(munName).label);
-            selectedLayers.delete(munName);
-
-            // Remove properties related to this polygon from `matchingProperties`
-            matchingProperties = matchingProperties.filter((property) => {
-              const associatedCities = getAssociatedCities(munName);
-              return (
-                !associatedCities.includes(property.town) &&
-                property.town !== munName
-              );
-            });
-
-            selectedPolygonIds = selectedPolygonIds.filter(
-              (id) => id !== polygonId
-            );
-          } else {
-            // Select the polygon and style it
-            layer.setStyle(selectedStyle);
-
-            // console.log(allPropertyData);
-
-            // Get properties for both the municipality and its associated cities
-            const associatedCities = getAssociatedCities(munName);
-            const propertiesForMun = allPropertyData.filter((property) => {
-              return (
-                property.town === munName ||
-                associatedCities.includes(property.town)
-              );
-            });
-
-            layer.propertiesCount = propertiesForMun.length;
-            selectedLayers.set(munName, layer);
-            matchingProperties = [...matchingProperties, ...propertiesForMun];
-            selectedPolygonIds.push(polygonId);
+setTimeout(() => {
+  // Add polygons to the map
+  fetch("malanga_towns.geojson")
+    .then((response) => response.json())
+    .then((data) => {
+      L.geoJSON(data, {
+        style: function (feature) {
+          const munName = feature.properties.mun_name;
+          const associatedCities = getAssociatedCities(munName);
+          if (!isLoading) {
           }
+          // Calculate the number of properties for this municipality
+          const propertiesForMun = allPropertyData.filter((property) => {
+            return (
+              property.town === munName ||
+              associatedCities.includes(property.town)
+            );
+          });
 
-          // console.log("Selected Polygon IDs:", selectedPolygonIds);
-          updateLabels(); // Update labels for all selected polygons
-        });
-      },
-    }).addTo(map);
-  })
-  .catch((error) => console.error("Error loading the GeoJSON file:", error));
+          // Apply zero-property style if no properties found
+          if (propertiesForMun.length === 0) {
+            return zeroPropertyStyle;
+          } else {
+            return defaultStyle;
+          }
+        },
+
+        onEachFeature: function (feature, layer) {
+          const munName = feature.properties.mun_name;
+          const polygonId = feature.properties.id;
+
+          // Click event for selecting/deselecting polygons
+          layer.on("click", function () {
+            if (selectedLayers.has(munName)) {
+              // Deselect if already selected
+              layer.setStyle(defaultStyle);
+              map.removeLayer(selectedLayers.get(munName).label);
+              selectedLayers.delete(munName);
+
+              // Remove properties related to this polygon from `matchingProperties`
+              matchingProperties = matchingProperties.filter((property) => {
+                const associatedCities = getAssociatedCities(munName);
+                return (
+                  !associatedCities.includes(property.town) &&
+                  property.town !== munName
+                );
+              });
+
+              selectedPolygonIds = selectedPolygonIds.filter(
+                (id) => id !== polygonId
+              );
+            } else {
+              // Select the polygon and style it
+
+              // Get properties for both the municipality and its associated cities
+              const associatedCities = getAssociatedCities(munName);
+              const propertiesForMun = allPropertyData.filter((property) => {
+                return (
+                  property.town === munName ||
+                  associatedCities.includes(property.town)
+                );
+              });
+
+              layer.propertiesCount = propertiesForMun.length;
+              console.log(propertiesForMun.length);
+
+              if (propertiesForMun.length) {
+                layer.setStyle(selectedStyle);
+                selectedLayers.set(munName, layer);
+                matchingProperties = [
+                  ...matchingProperties,
+                  ...propertiesForMun,
+                ];
+                selectedPolygonIds.push(polygonId);
+              }
+            }
+
+            // console.log("Selected Polygon IDs:", selectedPolygonIds);
+            updateLabels(); // Update labels for all selected polygons
+          });
+        },
+      }).addTo(map);
+    })
+    .catch((error) => console.error("Error loading the GeoJSON file:", error));
+}, 1000); // Adjust timing for your actual data fetching
 
 function clearMapwhenClearButtonClicked() {
   selectedLayers.forEach((layer, munName) => {

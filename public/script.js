@@ -123,7 +123,8 @@ function filterProperties() {
       bedrooms,
       bathrooms
     );
-
+    mapTitle = "Available properties";
+    titleLabel.className = "result-map-title-label ";
     updatePropertyCount(filtered.length);
     generatePropertySearchLink(
       minPrice,
@@ -134,9 +135,6 @@ function filterProperties() {
     );
 
     isFiltered = true;
-
-    mapTitle = "Available properties";
-    titleLabel.className = "result-map-title-label ";
   } else {
     // if polygon not selected
     // filtered.length = 0;
@@ -152,7 +150,6 @@ function filterProperties() {
     );
     mapTitle = "Select areas for see Available properties";
     titleLabel.className = "result-map-title-label ";
-    console.log("fff");
     updatePropertyCount(filtered.length);
     generatePropertySearchLink(
       minPrice,
@@ -228,6 +225,8 @@ function updatePropertyCount(count, isClear) {
     document.querySelector("#noPropertiesMessage").style.display = "flex";
     noPropertiesMessage.style.visibility = "visible"; // Show the "No properties found" message
     mapTitle = " No properties available";
+    console.log("uyy");
+
     titleLabel.className = "no-result-map-title-label";
     document.getElementById("map-title-label").innerText = mapTitle;
   }
