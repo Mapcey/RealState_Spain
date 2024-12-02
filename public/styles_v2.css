@@ -1,0 +1,338 @@
+/* ==========================
+   Global Reset & Variables
+   ========================== */
+:root {
+  --primary-color: #3b82f6;
+  --secondary-color: #50c3c7;
+  --button-hover-color: #2563eb;
+  --text-dark: #374151;
+  --text-light: #555;
+  --background-light: #f9f9f9;
+  --box-shadow-light: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --box-shadow-hover: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ==========================
+     Property Count Section
+     ========================== */
+.property-count-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background-color: var(--background-light);
+  border-radius: 12px;
+  box-shadow: var(--box-shadow-light);
+  max-width: 300px;
+  margin: 20px auto;
+  text-align: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.property-count-container:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--box-shadow-hover);
+}
+
+.property-count-container label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+/* ==========================
+     Buttons
+     ========================== */
+.browse-data-button {
+  padding: 10px 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffffff;
+  background-color: var(--primary-color);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+  box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+  text-align: center;
+}
+
+.browse-data-button:hover {
+  background-color: #0056b3;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 10px rgba(0, 123, 255, 0.4);
+}
+
+.browse-data-button:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 123, 255, 0.2);
+}
+
+/* ==========================
+     Layout and Containers
+     ========================== */
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  height: 80vh;
+  font-family: "Inter", "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Arial, sans-serif;
+}
+
+/* Sidebar */
+.filter-container {
+  flex: 1 1 300px;
+  max-width: 300px;
+  padding: 15px;
+  background-color: #f3f4f6;
+  border-radius: 8px;
+  margin: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  height: calc(100% - 20px);
+  overflow-y: auto;
+}
+
+/* ==========================
+     Inputs and Dropdowns
+     ========================== */
+.text-input-range,
+.text-input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 5px;
+  border: 1px solid #d1d5db;
+  border-radius: 100px;
+  font-size: 1em;
+}
+
+/* Dropdown Styling */
+.dropdown {
+  position: relative;
+  width: 100%;
+}
+
+.dropdown-btn {
+  padding: 10px;
+  background-color: #ffffff;
+  color: #000;
+  border: 1px solid #ccc;
+  border-radius: 100px;
+  cursor: pointer;
+  text-align: left;
+  font-size: 1em;
+  transition: background-color 0.2s;
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.dropdown-btn:hover {
+  background-color: #f0f0f0;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #ffffff;
+  min-width: 100%;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px;
+  overflow-y: auto;
+  max-height: 300px;
+  border-radius: 20px;
+}
+
+.dropdown-content label {
+  display: block;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-content label:hover {
+  background-color: #f1f1f1;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.input-group {
+  display: flex;
+  gap: 5px;
+  margin-bottom: 5px;
+}
+
+/* ==========================
+     Side panel buttons
+     ========================== */
+.filter-button {
+  background-color: #50c3c7;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 100px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.clear-filter-button {
+  background-color: #8a8a8a;
+  color: white;
+  padding: 12px;
+  border: none;
+  border-radius: 100px;
+  font-weight: bold;
+  cursor: pointer;
+  text-align: center;
+}
+
+.filter-button:hover {
+  background-color: #2563eb;
+}
+
+.clear-filter-button:hover {
+  background-color: #7c7c7c;
+}
+
+/* ==========================
+     Map and Detail Panel
+     ========================== */
+.map-container {
+  flex: 2 1 0;
+  margin: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  min-height: 60vh;
+}
+
+#map {
+  width: 100%;
+  height: 100%;
+}
+
+.detail-panel-container {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  width: 90%;
+  max-width: 350px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: var(--box-shadow-hover);
+  overflow: hidden;
+}
+
+.detail-panel-title {
+  font-size: 1.2em;
+  font-weight: bold;
+  padding: 10px;
+  background-color: var(--primary-color);
+  color: white;
+}
+
+/* ==========================
+     Accessibility Enhancements
+     ========================== */
+.browse-data-button:focus,
+.filter-button:focus {
+  outline: 2px solid #0056b3;
+}
+
+.hidden {
+  display: none;
+}
+
+/* ==========================
+     Map Desc Title
+     ========================== */
+
+.map-title {
+  position: absolute;
+  /* background-color: white; */
+  text-align: center;
+  z-index: 1000;
+  top: 10px;
+  left: 50%;
+  transform: translate(-50%);
+  padding: 5px 15px;
+  border-radius: 10px;
+  backdrop-filter: blur(5px);
+  background-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.default-map-title-label {
+  color: rgb(20, 20, 20);
+}
+
+.result-map-title-label {
+  color: rgb(5, 146, 0);
+}
+
+.no-result-map-title-label {
+  color: rgb(190, 0, 0);
+}
+
+/* ==========================
+     Tooltip label style
+     ========================== */
+.property-label-tooltip {
+  /* background-color: rgba(255, 255, 255, 0.9); */
+  display: flex;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
+  border-radius: 20px;
+  width: 35px;
+  height: 35px;
+  color: #3b82f6;
+}
+
+.filtered-label {
+  color: #ff7800; /* Orange for filtered count */
+}
+
+.default-label {
+  color: #3388ff; /* Blue for all properties count */
+}
+
+/* ==========================
+     Loading Overlay
+     ========================== */
+.loading-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80%;
+  background-color: rgba(0, 0, 0, 0.5); /* Shaded background */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  color: white;
+  font-size: 2em;
+  font-family: Arial, sans-serif;
+}
+.hidden {
+  display: none;
+}

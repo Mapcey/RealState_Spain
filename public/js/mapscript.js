@@ -1,5 +1,5 @@
 // Initialize the Leaflet map
-const map = L.map("map").setView([36.8, -4.5], 9);
+const map = L.map("map").setView([36.8, -4.5], 7);
 
 // Add OpenStreetMap tiles
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -10,7 +10,7 @@ L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 // Define styles for normal and selected polygons
 const defaultStyle = { color: "#3388ff", weight: 1 };
 const selectedStyle = { color: "#ff7800", weight: 3 };
-const zeroPropertyStyle = { color: "#ff0000", weight: 0 };
+const zeroPropertyStyle = { color: "#6b6b6b", weight: 0 };
 
 // Variable to store selected layers and matching properties
 let selectedLayers = new Map();
@@ -68,12 +68,13 @@ function getAssociatedCities(munName) {
   return municipalityCityMapping[munName] || [];
 }
 
+// timeout untill polygon data load from xml
 setTimeout(() => {
   // Add polygons to the map
   fetch("malanga_towns.geojson")
     .then((response) => response.json())
     .then((data) => {
-      L.geoJSON(data, {
+      const geojsonLayer = L.geoJSON(data, {
         style: function (feature) {
           const munName = feature.properties.mun_name;
           const associatedCities = getAssociatedCities(munName);
@@ -150,6 +151,11 @@ setTimeout(() => {
           });
         },
       }).addTo(map);
+
+      map.fitBounds(geojsonLayer.getBounds(), {
+        animate: true,
+        duration: 2, // Animation duration in seconds
+      });
     })
     .catch((error) => console.error("Error loading the GeoJSON file:", error));
 }, 1000); // Adjust timing for your actual data fetching
