@@ -191,12 +191,13 @@
   font-weight: bold;
   cursor: pointer;
   text-align: center;
+  font-size: 16px;
 }
 
 .clear-filter-button {
   background-color: #8a8a8a;
   color: white;
-  padding: 12px;
+  padding: 10px;
   border: none;
   border-radius: 100px;
   font-weight: bold;
@@ -356,6 +357,10 @@
     font-size: 14px; /* Slightly reduce default font size */
   }
 
+  .loading-overlay {
+    height: 100%;
+  }
+
   /* Container Adjustments */
   .property-count-container {
     padding: 12px;
@@ -370,6 +375,7 @@
     margin: 10px 5px; /* Adjust margins */
     height: auto; /* Allow height to adjust */
     overflow-y: visible; /* Remove scroll */
+    order: 2;
   }
 
   /* Map Container */
@@ -377,6 +383,7 @@
     flex: 1 1 auto; /* Adjust flex-grow */
     min-height: 40vh; /* Reduce map height */
     min-width: 320px;
+    order: 1;
   }
 
   /* Buttons */
@@ -424,6 +431,29 @@
   /* Dropdown Content */
   .dropdown-content {
     max-height: 300px; /* Reduce max-height for dropdowns */
+  }
+
+  .bed-bath-container {
+    display: flex;
+    flex-direction: row; /* Arrange children horizontally */
+    justify-content: space-between; /* Space out the inputs */
+    gap: 10px; /* Add some space between the two inputs */
+  }
+
+  .bedrooms-input,
+  .bathrooms-input {
+    flex: 1; /* Make both inputs take equal width */
+  }
+
+  .filter-button {
+    position: absolute;
+    z-index: 2000;
+    padding: 15px 40px;
+    font-size: 22px;
+    top: 33%;
+    right: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   }
 }
 

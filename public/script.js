@@ -218,8 +218,6 @@ function updatePropertyCount(count, isClear) {
   } else if (count == 0 && isClear) {
     propertyCountSection.style.visibility = "hidden";
     propertyCountSection.style.height = "0";
-    propertyCountSection.style.backgroundColor = "green";
-    noPropertiesMessage.style.backgroundColor = "blue";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.visibility = "hidden"; // Hide the "No properties found" message
   } else {
