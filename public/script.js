@@ -212,10 +212,14 @@ function updatePropertyCount(count, isClear) {
   if (count > 0) {
     document.querySelector(".property-count-container").style.display = "flex";
     propertyCountSection.style.visibility = "visible";
+    propertyCountSection.style.height = "fit-content";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.visibility = "hidden"; // Hide the "No properties found" message
   } else if (count == 0 && isClear) {
     propertyCountSection.style.visibility = "hidden";
+    propertyCountSection.style.height = "0";
+    propertyCountSection.style.backgroundColor = "green";
+    noPropertiesMessage.style.backgroundColor = "blue";
     propertyCountElement.textContent = count;
     noPropertiesMessage.style.visibility = "hidden"; // Hide the "No properties found" message
   } else {

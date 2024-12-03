@@ -36,6 +36,7 @@
   margin: 20px auto;
   text-align: center;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  height: fit-content;
 }
 
 .property-count-container:hover {
@@ -324,7 +325,7 @@
   left: 0;
   width: 100%;
   height: 80%;
-  background-color: rgba(0, 0, 0, 0.5); /* Shaded background */
+  background-color: rgba(0, 0, 0, 0.2); /* Shaded background */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -332,7 +333,103 @@
   color: white;
   font-size: 2em;
   font-family: Arial, sans-serif;
+  backdrop-filter: blur(3px);
+  opacity: 1; /* Default state */
+  visibility: visible; /* Default state */
+  transition: opacity 0.5s ease, visibility 0.5s ease;
 }
 .hidden {
-  display: none;
+  opacity: 0; /* Fade out */
+  visibility: hidden; /* Remove from view after fade-out */
+}
+
+@media (max-width: 1366px) {
+  body {
+    font-size: 12px;
+  }
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  /* General Reset */
+  * {
+    font-size: 14px; /* Slightly reduce default font size */
+  }
+
+  /* Container Adjustments */
+  .property-count-container {
+    padding: 12px;
+    max-width: 90%; /* Take most of the screen width */
+    margin: 10px auto; /* Adjust margins for smaller screens */
+  }
+
+  /* Sidebar Adjustments */
+  .filter-container {
+    flex: 1 1 auto; /* Allow flexible resizing */
+    max-width: 100%; /* Full width on mobile */
+    margin: 10px 5px; /* Adjust margins */
+    height: auto; /* Allow height to adjust */
+    overflow-y: visible; /* Remove scroll */
+  }
+
+  /* Map Container */
+  .map-container {
+    flex: 1 1 auto; /* Adjust flex-grow */
+    min-height: 40vh; /* Reduce map height */
+    min-width: 320px;
+  }
+
+  /* Buttons */
+  .browse-data-button,
+  .filter-button,
+  .clear-filter-button {
+    padding: 8px 15px; /* Reduce padding */
+    font-size: 12px; /* Smaller text */
+  }
+
+  /* Dropdown Adjustments */
+  .dropdown-btn {
+    font-size: 14px; /* Reduce dropdown button font size */
+  }
+
+  /* Detail Panel */
+  .detail-panel-container {
+    position: relative; /* Move from fixed to relative for better stacking */
+    bottom: auto;
+    right: auto;
+    width: 95%; /* Use most of the screen width */
+    margin: 10px auto; /* Center align */
+  }
+
+  /* Map Title Adjustments */
+  .map-title {
+    top: 5px; /* Move title higher */
+    padding: 5px 10px; /* Reduce padding */
+    font-size: 0.9em; /* Reduce font size */
+  }
+
+  /* Message Adjustments */
+  #noPropertiesMessage {
+    font-size: 12px; /* Reduce font size for better fit */
+    margin-top: 10px;
+  }
+
+  /* Filter Input Fields */
+  .text-input,
+  .text-input-range {
+    padding: 8px; /* Reduce padding */
+    font-size: 14px; /* Adjust font size */
+  }
+
+  /* Dropdown Content */
+  .dropdown-content {
+    max-height: 300px; /* Reduce max-height for dropdowns */
+  }
+}
+
+@media (max-width: 320px) {
+  /* Map Container */
+  .map-container {
+    min-width: 160px;
+  }
 }
