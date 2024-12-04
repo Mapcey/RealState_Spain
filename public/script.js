@@ -18,8 +18,8 @@ function setLoadingState(loading) {
 async function loadXML() {
   try {
     setLoadingState(true);
-    // const response = await fetch("XML_dev.xml");
-    const response = await fetch("XML_Feeds_for_areas_new.xml");
+    const response = await fetch("XML_dev.xml");
+    // const response = await fetch("XML_Feeds_for_areas_new.xml");
     const xmlText = await response.text();
     const parser = new DOMParser();
     return parser.parseFromString(xmlText, "application/xml");

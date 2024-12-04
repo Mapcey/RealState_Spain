@@ -462,6 +462,22 @@
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   }
+
+  .property-count-container {
+    width: 100%;
+  }
+
+  .property-count-container label {
+    font-size: 12px;
+  }
+
+  #propertyCount {
+    font-size: 36px;
+  }
+
+  .browse-data-button {
+    width: 100%;
+  }
 }
 
 @media (max-width: 320px) {
