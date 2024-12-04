@@ -326,6 +326,16 @@ function generatePropertySearchLink(
   browseButton.style.display = "inline"; // Show the button
 }
 
+document.getElementById("filter-button").addEventListener("click", function () {
+  if (window.innerWidth <= 768) {
+    // Mobile view threshold
+    document.getElementById("propertyCountSection").scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+    });
+  }
+});
+
 // https://costadelsolspecialist.com/
 // property-search/
 // ?location%5B%5D=
