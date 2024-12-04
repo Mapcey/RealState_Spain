@@ -328,10 +328,19 @@ function generatePropertySearchLink(
 
 document.getElementById("filter-button").addEventListener("click", function () {
   if (window.innerWidth <= 768) {
-    // Mobile view threshold
-    document.getElementById("propertyCountSection").scrollIntoView({
+    // Ensure the element is within a scrollable container
+    const propertyCountSection = document.getElementById(
+      "propertyCountSection"
+    );
+
+    // Calculate its position relative to the viewport
+    const rect = propertyCountSection.getBoundingClientRect();
+    const offset = window.scrollY + rect.top - 20; // Adjust for header, if any
+
+    // Scroll smoothly only within the visible area
+    window.scrollTo({
+      top: offset,
       behavior: "smooth",
-      block: "start",
     });
   }
 });
