@@ -18,8 +18,8 @@ function setLoadingState(loading) {
 async function loadXML() {
   try {
     setLoadingState(true);
-    const response = await fetch("XML_dev.xml");
-    // const response = await fetch("XML_Feeds_for_areas_new.xml");
+    // const response = await fetch("XML_dev.xml");
+    const response = await fetch("XML_Feeds_for_areasV2.xml");
     const xmlText = await response.text();
     const parser = new DOMParser();
     return parser.parseFromString(xmlText, "application/xml");
@@ -328,18 +328,15 @@ function generatePropertySearchLink(
 
 document.getElementById("filter-button").addEventListener("click", function () {
   if (window.innerWidth <= 768) {
-    // Ensure the element is within a scrollable container
-    const propertyCountSection = document.getElementById(
-      "propertyCountSection"
-    );
+    // Mobile view threshold
+    const element = document.getElementById("propertyCountSection");
+    const yOffset = -20; // Negative offset to scroll 20px down
 
-    // Calculate its position relative to the viewport
-    const rect = propertyCountSection.getBoundingClientRect();
-    const offset = window.scrollY + rect.top - 20; // Adjust for header, if any
+    const yPosition =
+      element.getBoundingClientRect().top + window.pageYOffset + yOffset;
 
-    // Scroll smoothly only within the visible area
     window.scrollTo({
-      top: offset,
+      top: yPosition,
       behavior: "smooth",
     });
   }
