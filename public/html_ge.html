@@ -1,0 +1,327 @@
+<!-- public/index.html -->
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Immobilien</title>
+<!-- Leaflet CSS -->
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+/>
+<link
+href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap"
+rel="stylesheet"
+/>
+<!-- Leaflet Draw CSS -->
+<link
+rel="stylesheet"
+href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css"
+/>
+<!-- Custom CSS -->
+<link rel="stylesheet" href="styles.css" />
+<!-- bind popup CSS -->
+<!-- <link rel="stylesheet" href="./styles/popup.css" /> -->
+<!-- Detail panel -->
+<link rel="stylesheet" href="./styles/detail-panel.css" />
+</head>
+<body>
+<!-- Navigation Bar -->
+<!-- <nav class="nav-container">
+<label>Firmenname</label>
+</nav> -->
+<div class="content">
+  <!-- Sidebar Menu -->
+  <div class="filter-container">
+    <label class="sp-sub-titles">Immobilientyp </label>
+    <div class="dropdown">
+      <button class="dropdown-btn">Immobilientypen auswählen</button>
+      <div class="dropdown-content" id="propertyType">
+        <h3>Wohnung</h3>
+        <!-- <label
+          ><input type="checkbox" class="checkbox" value="Apartment" />
+          Wohnung</label
+        > -->
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Ground Floor Apartment"
+          />
+          Erdgeschosswohnung</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Middle Floor Apartment"
+          />
+          Wohnung in mittlerem Stockwerk</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Top Floor Apartment"
+          />
+          Dachgeschosswohnung</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Ground Floor Studio"
+          />
+          Erdgeschoss-Studio</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Ground Floor Studio"
+          />
+          Studio im mittleren Stockwerk</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Ground Floor Studio"
+          />
+          Studio im Dachgeschoss</label
+        >
+        <label
+          ><input type="checkbox" class="checkbox" value="Penthouse" />
+          Penthouse</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Penthouse Duplex"
+          />
+          Maisonette-Penthouse</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Penthouse Duplex"
+          />
+          Maisonette-Penthouse</label
+        >
+
+        <h3>Haus</h3>
+        <label
+          ><input type="checkbox" class="checkbox" value="Villa" />
+          Villa</label
+        >
+        <label
+          ><input type="checkbox" class="checkbox" value="Bungalow" />
+          Bungalow</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Semi-Detached House"
+          />
+          Doppelhaushälfte</label
+        >
+        <label
+          ><input type="checkbox" class="checkbox" value="Townhouse" />
+          Reihenhaus</label
+        >
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Finca - Cortijo"
+          />
+          Finca - Cortijo</label
+        >
+
+        <h3>Gewerbeimmobilie</h3>
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Apartment Complex"
+          />
+          Wohnanlage</label
+        >
+        <label
+          ><input type="checkbox" class="checkbox" value="Restaurant" />
+          Restaurant</label
+        >
+        <label
+          ><input type="checkbox" class="checkbox" value="Hotel" />
+          Hotel</label
+        >
+        <label
+          ><input type="checkbox" class="checkbox" value="Hostel" />
+          Hostel</label
+        >
+
+        <h3>Grundstück</h3>
+        <label
+          ><input
+            type="checkbox"
+            class="checkbox"
+            value="Residential Plot"
+          />
+          Wohngrundstück</label
+        >
+      </div>
+    </div>
+
+    <label class="sp-sub-titles">Preisspanne </label>
+    <div class="input-group">
+      <select title="price" class="text-input-range" id="minPrice">
+        <option value="" disabled selected>Min</option>
+        <option value="50000">€ 50.000</option>
+        <option value="100000">€ 100.000</option>
+        <option value="150000">€ 150.000</option>
+        <option value="200000">€ 200.000</option>
+        <option value="250000">€ 250.000</option>
+        <option value="500000">€ 500.000</option>
+        <option value="1000000">€ 1.000.000</option>
+        <option value="5000000">€ 5.000.000</option>
+        <option value="10000000">€ 10.000.000</option>
+        <option value="20000000">€ 20.000.000</option>
+        <option value="30000000">€ 30.000.000</option>
+        <option value="40000000">€ 40.000.000</option>
+        <option value="50000000">€ 50.000.000</option>
+      </select>
+
+      <select title="price" class="text-input-range" id="maxPrice">
+        <option value="" disabled selected>Max</option>
+        <option value="50000">€ 50.000</option>
+        <option value="100000">€ 100.000</option>
+        <option value="150000">€ 150.000</option>
+        <option value="200000">€ 200.000</option>
+        <option value="250000">€ 250.000</option>
+        <option value="500000">€ 500.000</option>
+        <option value="1000000">€ 1.000.000</option>
+        <option value="5000000">€ 5.000.000</option>
+        <option value="10000000">€ 10.000.000</option>
+        <option value="20000000">€ 20.000.000</option>
+        <option value="30000000">€ 30.000.000</option>
+        <option value="40000000">€ 40.000.000</option>
+        <option value="50000000">€ 50.000.000</option>
+      </select>
+    </div>
+
+    <label class="sp-sub-titles">Größenspanne (m²) </label>
+    <div class="input-group">
+      <select title="size" class="text-input-range" id="minSize">
+        <option value="" disabled selected>Min</option>
+        <option value="50">50 m²</option>
+        <option value="100">100 m²</option>
+        <option value="150">150 m²</option>
+        <option value="200">200 m²</option>
+        <option value="250">250 m²</option>
+        <option value="300">300 m²</option>
+        <option value="400">400 m²</option>
+        <option value="500">500 m²</option>
+        <option value="750">750 m²</option>
+        <option value="1000">1000 m²</option>
+        <option value="1500">1500 m²</option>
+        <option value="2000">2000 m²</option>
+        <option value="2500">2500 m²</option>
+      </select>
+
+      <select title="size" class="text-input-range" id="maxSize">
+        <option value="" disabled selected>Max</option>
+        <option value="50">50 m²</option>
+        <option value="100">100 m²</option>
+        <option value="150">150 m²</option>
+        <option value="200">200 m²</option>
+        <option value="250">250 m²</option>
+        <option value="300">300 m²</option>
+        <option value="400">400 m²</option>
+        <option value="500">500 m²</option>
+        <option value="750">750 m²</option>
+        <option value="1000">1000 m²</option>
+        <option value="1500">1500 m²</option>
+        <option value="2000">2000 m²</option>
+        <option value="2500">2500 m²</option>
+      </select>
+    </div>
+
+    <label class="sp-sub-titles">Schlafzimmer </label>
+    <div class="input-group">
+      <select title="beds" class="text-input" id="bedrooms">
+        <option value="" disabled selected>beliebig</option>
+        <option value="1">1+</option>
+        <option value="2">2+</option>
+        <option value="3">3+</option>
+        <option value="4">4+</option>
+        <option value="5">5+</option>
+        <option value="6">6+</option>
+      </select>
+    </div>
+
+    <label class="sp-sub-titles">Badezimmer </label>
+    <div class="input-group">
+      <select title="baths" class="text-input" id="bathrooms">
+        <option value="" disabled selected>beliebig</option>
+        <option value="1">1+</option>
+        <option value="2">2+</option>
+        <option value="3">3+</option>
+        <option value="4">4+</option>
+        <option value="5">5+</option>
+        <option value="6">6+</option>
+      </select>
+    </div>
+
+    <button class="filter-button" onclick="filterProperties()">
+      Filtern
+    </button>
+    <button class="clear-filter-button" id="clearFiltersButton">
+      Filter zurücksetzen
+    </button>
+
+    <div id="propertyCountSection" class="property-count-container">
+      <label>Anzahl der ausgewählten Immobilien</label>
+      <div class="property-count">
+        <span id="propertyCount">0</span>
+      </div>
+
+      <div id="browseLinkButton" class="browse-data-button">
+        Liste anzeigen
+      </div>
+    </div>
+  </div>
+
+  <!-- Map Pane -->
+  <div class="map-container">
+    <div id="map"></div>
+  </div>
+  <div id="properties-container"></div>
+
+  <!-- Detail panel -->
+  <!-- <div id="detail-panel" class="detail-panel-container">
+    <div class="detail-panel-title">Immobilienliste</div>
+    <div class="detail-panel-body">Inhaltstext</div>
+  </div> -->
+</div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<!-- Turf.js -->
+<script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
+<!-- Leaflet Draw JS -->
+<script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
+
+<!-- Custom Script -->
+<script src="script.js"></script>
+<script src="./js/mapscript.js"></script>
+<script src="./js/dropdownFeed.js"></script>
+<!-- <script src="./js/detail-panel.js"></script> -->
+content_copy
+Use code with caution.
+</body>
+</html>
+<!-- <div class="popup-slideshow"></div> -->
