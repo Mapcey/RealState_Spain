@@ -1,268 +1,136 @@
-<!-- public/index.html -->
+This updated version translates all the visible text within the HTML to Dutch. Remember that this only addresses the static text; any dynamically generated text within your Javascript files will also need translation.
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="nl">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RealState</title>
-    <!-- Leaflet CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap"
-      rel="stylesheet"
-    />
-    <!-- Leaflet Draw CSS -->
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css"
-    />
-    <!-- Custom CSS -->
-    <!-- <link rel="stylesheet" href="styles.css" /> -->
+    <title>Vastgoed</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-draw/dist/leaflet.draw.css" />
     <link rel="stylesheet" href="styles_v2.css" />
-    <!-- bind popup CSS -->
-    <!-- <link rel="stylesheet" href="./styles/popup.css" /> -->
-    <!-- Detail panel -->
     <link rel="stylesheet" href="./styles/detail-panel.css" />
   </head>
   <body>
-    <!-- Navigation Bar -->
-    <!-- <nav class="nav-container">
-      <label>Company Name</label>
-    </nav> -->
-
     <div id="loading-overlay" class="loading-overlay hidden">
-      Data Loading...
+      Data wordt geladen...
     </div>
 
     <div class="content">
-      <!-- Sidebar Menu -->
       <div class="filter-container">
-        <label class="sp-sub-titles">Property Type </label>
+        <label class="sp-sub-titles">Type onroerend goed</label>
         <div class="dropdown">
-          <button class="dropdown-btn">Select Property Types</button>
+          <button class="dropdown-btn">Eigendomstypen selecteren</button>
           <div class="dropdown-content" id="propertyType">
-            <h3>Apartment</h3>
-            <!-- <label
-              ><input type="checkbox" class="checkbox" value="Apartment" />
-              Apartment</label
-            > -->
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Ground Floor Apartment"
-              />
-              Ground Floor Apartment</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Middle Floor Apartment"
-              />
-              Middle Floor Apartment</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Top Floor Apartment"
-              />
-              Top Floor Apartment</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Ground Floor Studio"
-              />
-              Ground Floor Studio</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Ground Floor Studio"
-              />
-              Middle Floor Studio</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Ground Floor Studio"
-              />
-              Top Floor Studio</label
-            >
-            <label
-              ><input type="checkbox" class="checkbox" value="Penthouse" />
-              Penthouse</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Penthouse Duplex"
-              />
-              Duplex</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Penthouse Duplex"
-              />
-              Penthouse Duplex</label
-            >
+            <h3>Appartement</h3>
+            <label><input type="checkbox" class="checkbox" value="Ground Floor Apartment" />Appartement begane grond</label>
+            <label><input type="checkbox" class="checkbox" value="Middle Floor Apartment" />Appartement tussenverdieping</label>
+            <label><input type="checkbox" class="checkbox" value="Top Floor Apartment" />Appartement bovenste verdieping</label>
+            <label><input type="checkbox" class="checkbox" value="Ground Floor Studio" />Studio begane grond</label>
+            <label><input type="checkbox" class="checkbox" value="Ground Floor Studio" />Studio tussenverdieping</label>
+            <label><input type="checkbox" class="checkbox" value="Ground Floor Studio" />Studio bovenste verdieping</label>
+            <label><input type="checkbox" class="checkbox" value="Penthouse" />Penthouse</label>
+            <label><input type="checkbox" class="checkbox" value="Penthouse Duplex" />Duplex</label>
+            <label><input type="checkbox" class="checkbox" value="Penthouse Duplex" />Penthouse Duplex</label>
 
-            <h3>House</h3>
-            <label
-              ><input type="checkbox" class="checkbox" value="Villa" />
-              Villa</label
-            >
-            <label
-              ><input type="checkbox" class="checkbox" value="Bungalow" />
-              Bungalow</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Semi-Detached House"
-              />
-              Semi-Detached House</label
-            >
-            <label
-              ><input type="checkbox" class="checkbox" value="Townhouse" />
-              Townhouse</label
-            >
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Finca - Cortijo"
-              />
-              Finca - Cortijo</label
-            >
+            <h3>Huis</h3>
+            <label><input type="checkbox" class="checkbox" value="Villa" />Villa</label>
+            <label><input type="checkbox" class="checkbox" value="Bungalow" />Bungalow</label>
+            <label><input type="checkbox" class="checkbox" value="Semi-Detached House" />Twee-onder-een-kap</label>
+            <label><input type="checkbox" class="checkbox" value="Townhouse" />Rijhuis</label>
+            <label><input type="checkbox" class="checkbox" value="Finca - Cortijo" />Finca - Cortijo</label>
 
-            <h3>Commercial Property</h3>
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Apartment Complex"
-              />
-              Apartment Complex</label
-            >
-            <label
-              ><input type="checkbox" class="checkbox" value="Restaurant" />
-              Restaurant</label
-            >
-            <label
-              ><input type="checkbox" class="checkbox" value="Hotel" />
-              Hotel</label
-            >
-            <label
-              ><input type="checkbox" class="checkbox" value="Hostel" />
-              Hostel</label
-            >
+            <h3>Commercieel onroerend goed</h3>
+            <label><input type="checkbox" class="checkbox" value="Apartment Complex" />Appartementencomplex</label>
+            <label><input type="checkbox" class="checkbox" value="Restaurant" />Restaurant</label>
+            <label><input type="checkbox" class="checkbox" value="Hotel" />Hotel</label>
+            <label><input type="checkbox" class="checkbox" value="Hostel" />Hostel</label>
 
-            <h3>Land</h3>
-            <label
-              ><input
-                type="checkbox"
-                class="checkbox"
-                value="Residential Plot"
-              />
-              Residential Plot</label
-            >
+            <h3>Grond</h3>
+            <label><input type="checkbox" class="checkbox" value="Residential Plot" />Bouwkavel</label>
           </div>
         </div>
 
-        <label class="sp-sub-titles">Price Range </label>
+        <label class="sp-sub-titles">Prijsbereik</label>
         <div class="input-group">
           <select title="price" class="text-input-range" id="minPrice">
             <option value="" disabled selected>Min</option>
-            <option value="100000">€ 100,000</option>
-            <option value="200000">€ 200,000</option>
-            <option value="300000">€ 300,000</option>
-            <option value="400000">€ 400,000</option>
-            <option value="500000">€ 500,000</option>
-            <option value="600000">€ 600,000</option>
-            <option value="700000">€ 700,000</option>
-            <option value="800000">€ 800,000</option>
-            <option value="900000">€ 900,000</option>
-            <option value="1000000">€ 1,000,000</option>
-            <option value="1200000">€ 1,200,000</option>
-            <option value="1400000">€ 1,400,000</option>
-            <option value="1600000">€ 1,600,000</option>
-            <option value="1800000">€ 1,800,000</option>
-            <option value="20000000">€ 2,000,000</option>
-            <option value="22500000">€ 2,250,000</option>
-            <option value="25000000">€ 2,500,000</option>
-            <option value="27500000">€ 2,750,000</option>
-            <option value="30000000">€ 3,000,000</option>
-            <option value="35000000">€ 3,500,000</option>
-            <option value="40000000">€ 4,000,000</option>
-            <option value="45000000">€ 4,500,000</option>
-            <option value="50000000">€ 5,000,000</option>
-            <option value="60000000">€ 6,000,000</option>
-            <option value="70000000">€ 7,000,000</option>
-            <option value="80000000">€ 8,000,000</option>
-            <option value="90000000">€ 9,000,000</option>
-            <option value="100000000">€ 10,000,000</option>
-            <option value="150000000">€ 15,000,000</option>
-            <option value="200000000">€ 20,000,000</option>
-            <option value="250000000">€ 25,000,000</option>
-            <option value="300000000">€ 30,000,000</option>
-            <option value="350000000">€ 35,000,000</option>
-            <option value="400000000">€ 40,000,000</option>
+            <option value="100000">€ 100.000</option>
+            <option value="200000">€ 200.000</option>
+            <option value="300000">€ 300.000</option>
+            <option value="400000">€ 400.000</option>
+            <option value="500000">€ 500.000</option>
+            <option value="600000">€ 600.000</option>
+            <option value="700000">€ 700.000</option>
+            <option value="800000">€ 800.000</option>
+            <option value="900000">€ 900.000</option>
+            <option value="1000000">€ 1.000.000</option>
+            <option value="1200000">€ 1.200.000</option>
+            <option value="1400000">€ 1.400.000</option>
+            <option value="1600000">€ 1.600.000</option>
+            <option value="1800000">€ 1.800.000</option>
+            <option value="20000000">€ 2.000.000</option>
+            <option value="22500000">€ 2.250.000</option>
+            <option value="25000000">€ 2.500.000</option>
+            <option value="27500000">€ 2.750.000</option>
+            <option value="30000000">€ 3.000.000</option>
+            <option value="35000000">€ 3.500.000</option>
+            <option value="40000000">€ 4.000.000</option>
+            <option value="45000000">€ 4.500.000</option>
+            <option value="50000000">€ 5.000.000</option>
+            <option value="60000000">€ 6.000.000</option>
+            <option value="70000000">€ 7.000.000</option>
+            <option value="80000000">€ 8.000.000</option>
+            <option value="90000000">€ 9.000.000</option>
+            <option value="100000000">€ 10.000.000</option>
+            <option value="150000000">€ 15.000.000</option>
+            <option value="200000000">€ 20.000.000</option>
+            <option value="250000000">€ 25.000.000</option>
+            <option value="300000000">€ 30.000.000</option>
+            <option value="350000000">€ 35.000.000</option>
+            <option value="400000000">€ 40.000.000</option>
           </select>
-
           <select title="price" class="text-input-range" id="maxPrice">
             <option value="" disabled selected>Max</option>
-
-            <option value="100000">€ 100,000</option>
-            <option value="200000">€ 200,000</option>
-            <option value="300000">€ 300,000</option>
-            <option value="400000">€ 400,000</option>
-            <option value="500000">€ 500,000</option>
-            <option value="600000">€ 600,000</option>
-            <option value="700000">€ 700,000</option>
-            <option value="800000">€ 800,000</option>
-            <option value="900000">€ 900,000</option>
-            <option value="1000000">€ 1,000,000</option>
-            <option value="1200000">€ 1,200,000</option>
-            <option value="1400000">€ 1,400,000</option>
-            <option value="1600000">€ 1,600,000</option>
-            <option value="1800000">€ 1,800,000</option>
-            <option value="20000000">€ 2,000,000</option>
-            <option value="22500000">€ 2,250,000</option>
-            <option value="25000000">€ 2,500,000</option>
-            <option value="27500000">€ 2,750,000</option>
-            <option value="30000000">€ 3,000,000</option>
-            <option value="35000000">€ 3,500,000</option>
-            <option value="40000000">€ 4,000,000</option>
-            <option value="45000000">€ 4,500,000</option>
-            <option value="50000000">€ 5,000,000</option>
-            <option value="60000000">€ 6,000,000</option>
-            <option value="70000000">€ 7,000,000</option>
-            <option value="80000000">€ 8,000,000</option>
-            <option value="90000000">€ 9,000,000</option>
-            <option value="100000000">€ 10,000,000</option>
-            <option value="150000000">€ 15,000,000</option>
-            <option value="200000000">€ 20,000,000</option>
-            <option value="250000000">€ 25,000,000</option>
-            <option value="300000000">€ 30,000,000</option>
-            <option value="350000000">€ 35,000,000</option>
-            <option value="400000000">€ 40,000,000</option>
+            <option value="100000">€ 100.000</option>
+            <option value="200000">€ 200.000</option>
+            <option value="300000">€ 300.000</option>
+            <option value="400000">€ 400.000</option>
+            <option value="500000">€ 500.000</option>
+            <option value="600000">€ 600.000</option>
+            <option value="700000">€ 700.000</option>
+            <option value="800000">€ 800.000</option>
+            <option value="900000">€ 900.000</option>
+            <option value="1000000">€ 1.000.000</option>
+            <option value="1200000">€ 1.200.000</option>
+            <option value="1400000">€ 1.400.000</option>
+            <option value="1600000">€ 1.600.000</option>
+            <option value="1800000">€ 1.800.000</option>
+            <option value="20000000">€ 2.000.000</option>
+            <option value="22500000">€ 2.250.000</option>
+            <option value="25000000">€ 2.500.000</option>
+            <option value="27500000">€ 2.750.000</option>
+            <option value="30000000">€ 3.000.000</option>
+            <option value="35000000">€ 3.500.000</option>
+            <option value="40000000">€ 4.000.000</option>
+            <option value="45000000">€ 4.500.000</option>
+            <option value="50000000">€ 5.000.000</option>
+            <option value="60000000">€ 6.000.000</option>
+            <option value="70000000">€ 7.000.000</option>
+            <option value="80000000">€ 8.000.000</option>
+            <option value="90000000">€ 9.000.000</option>
+            <option value="100000000">€ 10.000.000</option>
+            <option value="150000000">€ 15.000.000</option>
+            <option value="200000000">€ 20.000.000</option>
+            <option value="250000000">€ 25.000.000</option>
+            <option value="300000000">€ 30.000.000</option>
+            <option value="350000000">€ 35.000.000</option>
+            <option value="400000000">€ 40.000.000</option>
           </select>
         </div>
 
-        <label class="sp-sub-titles">Size Range (m²) </label>
+        <label class="sp-sub-titles">Groottebereik (m²)</label>
         <div class="input-group">
           <select title="size" class="text-input-range" id="minSize">
             <option value="" disabled selected>Min</option>
@@ -280,7 +148,6 @@
             <option value="2000">2000 m²</option>
             <option value="2500">2500 m²</option>
           </select>
-
           <select title="size" class="text-input-range" id="maxSize">
             <option value="" disabled selected>Max</option>
             <option value="50">50 m²</option>
@@ -301,10 +168,10 @@
 
         <div class="bed-bath-container">
           <div class="bedrooms-input">
-            <label class="sp-sub-titles">Bedrooms </label>
+            <label class="sp-sub-titles">Slaapkamers</label>
             <div class="input-group">
               <select title="beds" class="text-input" id="bedrooms">
-                <option value="" disabled selected>Any</option>
+                <option value="" disabled selected>Alle</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
@@ -314,12 +181,11 @@
               </select>
             </div>
           </div>
-
           <div class="bathrooms-input">
-            <label class="sp-sub-titles">Bathrooms </label>
+            <label class="sp-sub-titles">Badkamers</label>
             <div class="input-group">
               <select title="baths" class="text-input" id="bathrooms">
-                <option value="" disabled selected>Any</option>
+                <option value="" disabled selected>Alle</option>
                 <option value="1">1+</option>
                 <option value="2">2+</option>
                 <option value="3">3+</option>
@@ -333,74 +199,47 @@
 
         <div>
           <p style="font-size: 11px; margin-top: 10px; opacity: 0.8">
-            <strong>Select one or more ares</strong> in the map or search whole
-            area
+            <strong>Selecteer een of meer gebieden</strong> op de kaart of zoek in het hele gebied
           </p>
         </div>
 
-        <button
-          id="filter-button"
-          class="filter-button"
-          onclick="filterProperties()"
-        >
-          Search
+        <button id="filter-button" class="filter-button" onclick="filterProperties()">
+          Zoeken
         </button>
         <button class="clear-filter-button" id="clearFiltersButton">
-          Clear Search
+          Zoekopdracht wissen
         </button>
 
-        <div
-          id="propertyCountSection"
-          style="display: none"
-          class="property-count-container"
-        >
-          <label>Total selected properties</label>
+        <div id="propertyCountSection" style="display: none" class="property-count-container">
+          <label>Totaal geselecteerde objecten</label>
           <div class="property-count">
             <span id="propertyCount">0</span>
           </div>
           <div id="browseLinkButton" class="browse-data-button">
-            Go To Selection
+            Ga naar selectie
           </div>
         </div>
 
-        <div
-          id="noPropertiesMessage"
-          style="display: none; color: red; font-weight: bold"
-        >
-          No properties found matching the criteria.
+        <div id="noPropertiesMessage" style="display: none; color: red; font-weight: bold">
+          Geen objecten gevonden die aan de criteria voldoen.
         </div>
       </div>
 
-      <!-- Map Pane -->
       <div class="map-container">
         <div class="map-title">
-          <label id="map-title-label">Select areas for search properties</label>
+          <label id="map-title-label">Selecteer gebieden om eigendommen te zoeken</label>
         </div>
         <div id="map"></div>
       </div>
       <div id="properties-container"></div>
-
-      <!-- Detail panel -->
-      <!-- <div id="detail-panel" class="detail-panel-container">
-        <div class="detail-panel-title">Property list</div>
-        <div class="detail-panel-body">body content</div>
-      </div> -->
     </div>
 
-    <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Turf.js -->
     <script src="https://cdn.jsdelivr.net/npm/@turf/turf@6/turf.min.js"></script>
-    <!-- Leaflet Draw JS -->
     <script src="https://unpkg.com/leaflet-draw/dist/leaflet.draw.js"></script>
-
-    <!-- Custom Script -->
     <script src="script.js"></script>
     <script src="./js/mapscript.js"></script>
     <script src="./js/dropdownFeed.js"></script>
-    <!-- <script src="./js/detail-panel.js"></script> -->
     <script src="./js/municipality_city_mapping.js"></script>
   </body>
 </html>
-
-<!-- <div class="popup-slideshow"></div> -->
