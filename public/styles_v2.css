@@ -60,6 +60,10 @@
   margin-bottom: 5px;
 }
 
+.property-count-close {
+  display: none;
+}
+
 /* ==========================
      Buttons
      ========================== */
@@ -280,7 +284,7 @@
   text-align: center;
   z-index: 1000;
   top: 10px;
-  left: 50%;
+  right: 30%;
   transform: translate(-50%);
   padding: 5px 15px;
   border-radius: 10px;
@@ -420,13 +424,6 @@
     height: 100%;
   }
 
-  /* Container Adjustments */
-  .property-count-container {
-    padding: 12px;
-    max-width: 90%; /* Take most of the screen width */
-    margin: 10px auto; /* Adjust margins for smaller screens */
-  }
-
   /* Sidebar Adjustments */
   .filter-container {
     flex: 1 1 auto; /* Allow flexible resizing */
@@ -470,7 +467,7 @@
   /* Map Title Adjustments */
   .map-title {
     top: 5px; /* Move title higher */
-    left: 75%;
+    right: -90px;
     width: 200px;
     padding: 5px 10px; /* Reduce padding */
     font-size: 0.9em; /* Reduce font size */
@@ -517,6 +514,13 @@
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   }
 
+  /* ------------- property count card ----------- */
+  /* .property-count-container {
+    padding: 12px;
+    max-width: 90%; 
+    margin: 10px auto; 
+  }
+
   .property-count-container {
     width: 100%;
   }
@@ -531,21 +535,82 @@
 
   .browse-data-button {
     width: 100%;
+  } */
+
+  .property-count-container {
+    position: fixed;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: 90%;
+    max-width: none;
+    padding: 20px;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+    background-color: #ffffff; /* Modern-style white card */
+    animation: fadeInUp 0.3s ease-in-out;
   }
 
+  .property-count-container:hover {
+    transform: translateX(-50%) translateY(-5px); /* Ensure hover transform works correctly */
+  }
+
+  #propertyCount {
+    font-size: 36px;
+    font-weight: bold;
+    color: #3b3b3b;
+    margin-bottom: 5px;
+  }
+
+  .property-count-buttons {
+    display: flex;
+    flex-direction: row;
+  }
+  .property-count-close {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #303030;
+    background-color: var(--primary-color-l1);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding: 10px 20px;
+    display: flex;
+    margin-right: 10px;
+  }
+
+  .browse-data-button {
+    padding: 10px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    background-color: var(--primary-color);
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 123, 255, 0.3);
+    text-align: center;
+  }
+
+  /* ------------ search bar -------------- */
   #search-bar-container {
     position: absolute;
     margin-top: 5px;
     top: 50px;
     right: 5px;
     width: 200px;
-    z-index: 1000;
+    z-index: 2000;
   }
 
   #search-bar {
     font-size: 12px;
     width: 200px;
-    padding: 5px;
+    padding: 10px;
   }
 }
 
@@ -553,5 +618,16 @@
   /* Map Container */
   .map-container {
     min-width: 160px;
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
   }
 }

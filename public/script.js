@@ -326,21 +326,28 @@ function generatePropertySearchLink(
   browseButton.style.display = "inline"; // Show the button
 }
 
-document.getElementById("filter-button").addEventListener("click", function () {
-  if (window.innerWidth <= 768) {
-    // Mobile view threshold
-    const element = document.getElementById("propertyCountSection");
-    const yOffset = -20; // Negative offset to scroll 20px down
+document
+  .getElementById("close-card-btn")
+  .addEventListener("click", function () {
+    const card = document.getElementById("propertyCountSection");
+    card.style.display = "none"; // Hide the card
+  });
 
-    const yPosition =
-      element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+// document.getElementById("filter-button").addEventListener("click", function () {
+//   if (window.innerWidth <= 768) {
+//     // Mobile view threshold
+//     const element = document.getElementById("propertyCountSection");
+//     const yOffset = -20; // Negative offset to scroll 20px down
 
-    window.scrollTo({
-      top: yPosition,
-      behavior: "smooth",
-    });
-  }
-});
+//     const yPosition =
+//       element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+
+//     window.scrollTo({
+//       top: yPosition,
+//       behavior: "smooth",
+//     });
+//   }
+// });
 
 // https://costadelsolspecialist.com/
 // property-search/
