@@ -333,43 +333,36 @@ document
     card.style.display = "none"; // Hide the card
   });
 
-// document.getElementById("filter-button").addEventListener("click", function () {
-//   if (window.innerWidth <= 768) {
-//     // Mobile view threshold
-//     const element = document.getElementById("propertyCountSection");
-//     const yOffset = -20; // Negative offset to scroll 20px down
+// Function to automatically enter full screen for mobile screens
+function checkAndEnterFullScreen() {
+  // Check if the screen width is 768px or smaller (mobile view)
+  if (window.innerWidth <= 768) {
+    // Check if the app is not already in full-screen mode
+    if (
+      !document.fullscreenElement &&
+      !document.webkitFullscreenElement &&
+      !document.mozFullScreenElement &&
+      !document.msFullscreenElement
+    ) {
+      // Enter fullscreen mode
+      if (document.body.requestFullscreen) {
+        document.body.requestFullscreen();
+      } else if (document.body.webkitRequestFullscreen) {
+        // Safari
+        document.body.webkitRequestFullscreen();
+      } else if (document.body.mozRequestFullScreen) {
+        // Firefox
+        document.body.mozRequestFullScreen();
+      } else if (document.body.msRequestFullscreen) {
+        // IE/Edge
+        document.body.msRequestFullscreen();
+      }
+    }
+  }
+}
 
-//     const yPosition =
-//       element.getBoundingClientRect().top + window.pageYOffset + yOffset;
+// Add event listener for screen resize to check and enter fullscreen on mobile
+window.addEventListener("resize", checkAndEnterFullScreen);
 
-//     window.scrollTo({
-//       top: yPosition,
-//       behavior: "smooth",
-//     });
-//   }
-// });
-
-// https://costadelsolspecialist.com/
-// property-search/
-// ?location%5B%5D=
-// &search_location_1=
-// &list_price_min=100000&list_price_max=50000000
-// &bedrooms_min=&bedrooms_max=
-// &ref_no=
-// &bathrooms_min=&bathrooms_max=
-// &build_size_min=
-// &plot_size_min=&plot_size_min=
-// &listing_type=resale
-
-// https://costadelsolspecialist.com/
-// property-search/
-// ?location%5B%5D=74
-// &search_location_1=74
-// &list_price_min=100000&list_price_max=50000000
-// &bedrooms_min=2&bedrooms_max=5
-// &ref_no=
-// &bathrooms_min=1&bathrooms_max=4
-// &build_size_min=100
-// &plot_size_min=50&plot_size_min=150
-// &features%5B%5D=28
-// &listing_type=resale
+// Call the function when the page loads to check the initial screen size
+checkAndEnterFullScreen();
