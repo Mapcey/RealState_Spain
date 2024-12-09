@@ -1,3 +1,25 @@
+// Helper function to remove diacritics from a string
+function normalizeString(str) {
+  const charMap = {
+    á: "a",
+    é: "e",
+    í: "i",
+    ó: "o",
+    ú: "u",
+    ñ: "n",
+    ü: "u",
+    ç: "c",
+    ß: "ss",
+  };
+
+  // Remove diacritics and replace special characters using the map
+  return str
+    .normalize("NFD") // Decompose characters into base + diacritics
+    .replace(/[\u0300-\u036f]/g, "") // Remove diacritics
+    .replace(/[^\w\s]/g, (char) => charMap[char] || char) // Replace using charMap
+    .toLowerCase(); // Convert to lowercase
+}
+
 // Initialize the Leaflet map
 const map = L.map("map").setView([36.8, -4.5], 7);
 
@@ -16,6 +38,11 @@ const zeroPropertyStyle = { color: "#6b6b6b", weight: 0 };
 let selectedLayers = new Map();
 let matchingProperties = [];
 let selectedPolygonIds = []; // Store selected polygon IDs
+const searchBar = document.getElementById("search-bar");
+const suggestionList = document.getElementById("suggestion-list");
+
+// Create a new map to store searchable layers by mun_name
+let searchableLayers = new Map();
 
 document.getElementById("filter-button").addEventListener("click", () => {
   // Assuming 'filtered' is updated with new property data elsewhere in the app
@@ -100,6 +127,8 @@ setTimeout(() => {
           const munName = feature.properties.mun_name;
           const polygonId = feature.properties.id;
 
+          searchableLayers.set(munName, layer);
+
           // Click event for selecting/deselecting polygons
           layer.on("click", function () {
             if (selectedLayers.has(munName)) {
@@ -159,6 +188,49 @@ setTimeout(() => {
     })
     .catch((error) => console.error("Error loading the GeoJSON file:", error));
 }, 1000); // Adjust timing for your actual data fetching
+
+searchBar.addEventListener("input", (e) => {
+  const query = normalizeString(e.target.value.trim());
+  const suggestions = Array.from(searchableLayers.keys()).filter((munName) =>
+    normalizeString(munName).includes(query)
+  );
+
+  // Clear previous suggestions
+  suggestionList.innerHTML = "";
+  suggestionList.style.display = suggestions.length ? "block" : "none";
+
+  suggestions.forEach((suggestion) => {
+    const li = document.createElement("li");
+    li.textContent = suggestion;
+    li.addEventListener("click", () => {
+      searchBar.value = suggestion;
+      suggestionList.style.display = "none";
+      focusPolygon(suggestion); // Focus on the selected polygon
+    });
+    suggestionList.appendChild(li);
+  });
+});
+
+// Hide suggestions when clicking outside
+document.addEventListener("click", (e) => {
+  if (!searchBar.contains(e.target)) {
+    suggestionList.style.display = "none";
+  }
+});
+
+function focusPolygon(munName) {
+  const layer = searchableLayers.get(munName);
+  if (layer) {
+    map.fitBounds(layer.getBounds(), { animate: true });
+
+    // Open tooltip if it exists
+    if (layer.label) {
+      layer.openTooltip();
+    }
+  } else {
+    alert("Polygon not found!");
+  }
+}
 
 function clearMapwhenClearButtonClicked() {
   selectedLayers.forEach((layer, munName) => {

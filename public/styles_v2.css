@@ -351,6 +351,58 @@
   visibility: hidden; /* Remove from view after fade-out */
 }
 
+/* #map-container {
+  position: relative;
+} */
+
+#search-bar-container {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 300px;
+  z-index: 1000;
+}
+
+#search-bar {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 50px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  outline: none;
+}
+
+#search-bar:focus {
+  border-color: #3388ff;
+}
+
+#suggestion-list {
+  margin: 5px;
+  padding: 0;
+  list-style-type: none;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-top: none;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  width: 100%;
+  border-radius: 0 0 4px 4px;
+  display: none;
+  border-radius: 10px;
+}
+
+#suggestion-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#suggestion-list li:hover {
+  background-color: #f0f0f0;
+}
+
 @media (max-width: 1366px) {
   body {
     font-size: 12px;
@@ -418,6 +470,8 @@
   /* Map Title Adjustments */
   .map-title {
     top: 5px; /* Move title higher */
+    left: 75%;
+    width: 200px;
     padding: 5px 10px; /* Reduce padding */
     font-size: 0.9em; /* Reduce font size */
   }
@@ -477,6 +531,21 @@
 
   .browse-data-button {
     width: 100%;
+  }
+
+  #search-bar-container {
+    position: absolute;
+    margin-top: 5px;
+    top: 50px;
+    right: 5px;
+    width: 200px;
+    z-index: 1000;
+  }
+
+  #search-bar {
+    font-size: 12px;
+    width: 200px;
+    padding: 5px;
   }
 }
 

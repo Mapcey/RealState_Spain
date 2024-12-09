@@ -26,6 +26,11 @@
     <!-- <link rel="stylesheet" href="./styles/popup.css" /> -->
     <!-- Detail panel -->
     <link rel="stylesheet" href="./styles/detail-panel.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet-search/dist/leaflet-search.min.css"
+    />
   </head>
   <body>
     <!-- Navigation Bar -->
@@ -375,6 +380,16 @@
       <div class="map-container">
         <div class="map-title">
           <label id="map-title-label">Select areas for search properties</label>
+        </div>
+
+        <div id="search-bar-container">
+          <input
+            type="text"
+            id="search-bar"
+            placeholder="Search municipality..."
+            autocomplete="off"
+          />
+          <ul id="suggestion-list"></ul>
         </div>
         <div id="map"></div>
       </div>
