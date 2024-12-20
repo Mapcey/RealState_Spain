@@ -96,7 +96,7 @@ function getSelectedPropertyTypes() {
 let filtered = [];
 let isFiltered = false;
 
-let mapTitle = "Select areas for search properties";
+let mapTitle = "Select areas to search for properties";
 const titleLabel = document.getElementById("map-title-label");
 
 function filterProperties() {
