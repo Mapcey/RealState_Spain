@@ -21,7 +21,7 @@ function normalizeString(str) {
 }
 
 // Initialize the Leaflet map
-const map = L.map("map").setView([36.8, -4.5], 7);
+const map = L.map("map", { tap: false }).setView([36.8, -4.5], 7);
 
 // Add OpenStreetMap tiles
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -86,6 +86,10 @@ function updateLabels() {
       opacity: 0.9,
     });
 
+    // layer.on("click touchend", function () {
+    //   layer.openTooltip();
+    // });
+
     layer.openTooltip(); // Keep it visible like a label
     layer.label = layer.getTooltip(); // Save reference to the tooltip
   });
@@ -130,7 +134,7 @@ setTimeout(() => {
           searchableLayers.set(munName, layer);
 
           // Click event for selecting/deselecting polygons
-          layer.on("click", function () {
+          layer.on("click touchend", function () {
             if (selectedLayers.has(munName)) {
               // Deselect if already selected
               layer.setStyle(defaultStyle);
